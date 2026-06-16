@@ -28,6 +28,7 @@
 
   /* ===== DESKTOP / STAGE ===== */
   #stage { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+    padding-bottom: 64px;   /* reserved strip for the controls dock — keeps them off the machine */
     background:
       radial-gradient(ellipse 120% 90% at 50% 30%, #c4c0b3 0%, #aaa69a 70%, #97938a 100%);
   }
@@ -242,9 +243,9 @@
 
   /* ===== CONTROLS — all bottom-left stack ===== */
   #progress { position: fixed; bottom: 0; left: 0; height: 4px; background: var(--yellow); width: 0%; z-index: 90; transition: width 0.25s ease; }
-  #hint { position: fixed; bottom: 54px; left: 20px; z-index: 95; font-family: var(--sys); color: rgba(0,0,0,0.4); font-size: 10px; }
-  #hint kbd { border: 1.5px solid rgba(0,0,0,0.4); padding: 0 4px; }
-  #nav { position: fixed; bottom: 16px; left: 18px; right: auto; z-index: 95; display: flex; gap: 6px; opacity: 0.3; transition: opacity 0.2s; }
+  #hint { position: fixed; bottom: 24px; left: 112px; z-index: 95; font-family: var(--sys); color: rgba(0,0,0,0.5); font-size: 10px; }
+  #hint kbd { border: 1.5px solid rgba(0,0,0,0.45); padding: 0 4px; }
+  #nav { position: fixed; bottom: 16px; left: 22px; right: auto; z-index: 95; display: flex; gap: 6px; opacity: 0.5; transition: opacity 0.2s; }
   #nav:hover { opacity: 1; }
   #nav button { font-family: var(--sys); background: var(--paper); border: 2px solid var(--ink); width: 32px; height: 30px; cursor: pointer; box-shadow: 2px 2px 0 rgba(0,0,0,0.85); }
   #nav button:hover { background: var(--ink); color: var(--paper); }
@@ -758,7 +759,7 @@
   const next = () => go(i + 1), prev = () => go(i - 1);
 
   function scale() {
-    const s = Math.min(window.innerWidth / 1368, window.innerHeight / 894) * 0.96;
+    const s = Math.min(window.innerWidth / 1368, (window.innerHeight - 64) / 894) * 0.98;
     machine.style.transform = 'scale(' + s + ')';
   }
   window.addEventListener('resize', scale);
