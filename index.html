@@ -28,7 +28,6 @@
 
   /* ===== DESKTOP / STAGE ===== */
   #stage { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
-    padding-bottom: 64px;   /* reserved strip for the controls dock — keeps them off the machine */
     background:
       radial-gradient(ellipse 120% 90% at 50% 30%, #c4c0b3 0%, #aaa69a 70%, #97938a 100%);
   }
@@ -90,8 +89,8 @@
   @keyframes blink { 50% { opacity: 0.15; } }
 
   #screen { position: relative; flex: 1; overflow: hidden; background: var(--paper); }
-  .slide { position: absolute; inset: 0; padding: 42px 56px 24px; display: none; flex-direction: column; }
-  .slide.active { display: flex; }
+  .slide { position: absolute; inset: 0; padding: 42px 56px 24px; display: flex; flex-direction: column; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .35s ease; }
+  .slide.active { opacity: 1; visibility: visible; pointer-events: auto; }
 
   .statusbar { height: 26px; flex: none; border-top: 2px solid var(--ink); background: var(--paper);
     display: flex; align-items: center; justify-content: space-between; padding: 0 14px; font-family: var(--sys); font-size: 10px; color: var(--dim); }
@@ -187,7 +186,8 @@
 
   /* agent profile */
   .profile { display: flex; gap: 18px; align-items: flex-start; }
-  .profile .pic { width: 92px; height: 92px; flex: none; border: 3px solid var(--ink); box-shadow: 5px 5px 0 rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 52px; line-height: 1; color: var(--ink); }
+  .profile .pic { width: 92px; height: 92px; flex: none; border: 3px solid var(--ink); box-shadow: 5px 5px 0 rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 52px; line-height: 1; color: var(--ink); overflow: hidden; }
+  .profile .pic img { width: 100%; height: 100%; object-fit: cover; display: block; image-rendering: auto; }
   .profile .nm { font-family: var(--pixel); font-weight: 700; font-size: 28px; }
   .profile .role { font-family: var(--sys); font-size: 10px; color: var(--dim); margin: 5px 0 9px; letter-spacing: 0.5px; }
   .profile .desc { font-family: var(--pixel); font-size: 16px; color: var(--muted); line-height: 1.45; }
@@ -241,19 +241,35 @@
   #boot .bar .fill { height: 100%; width: 0%; background: repeating-linear-gradient(90deg, #fff 0 6px, #000 6px 8px); transition: width 0.3s linear; }
   #boot .skip { font-family: var(--pixel); font-size: 13px; color: #666; }
 
-  /* ===== CONTROLS — all bottom-left stack ===== */
+  /* ===== CONTROLS — auto-hiding dock ===== */
   #progress { position: fixed; bottom: 0; left: 0; height: 4px; background: var(--yellow); width: 0%; z-index: 90; transition: width 0.25s ease; }
-  #hint { position: fixed; bottom: 24px; left: 112px; z-index: 95; font-family: var(--sys); color: rgba(0,0,0,0.5); font-size: 10px; }
-  #hint kbd { border: 1.5px solid rgba(0,0,0,0.45); padding: 0 4px; }
-  #nav { position: fixed; bottom: 16px; left: 22px; right: auto; z-index: 95; display: flex; gap: 6px; opacity: 0.5; transition: opacity 0.2s; }
-  #nav:hover { opacity: 1; }
-  #nav button { font-family: var(--sys); background: var(--paper); border: 2px solid var(--ink); width: 32px; height: 30px; cursor: pointer; box-shadow: 2px 2px 0 rgba(0,0,0,0.85); }
-  #nav button:hover { background: var(--ink); color: var(--paper); }
+  #dock { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%) translateY(18px); z-index: 95;
+    display: flex; align-items: center; gap: 10px; padding: 6px 12px;
+    background: rgba(248,247,243,0.94); border: 2px solid var(--ink); box-shadow: 3px 3px 0 rgba(0,0,0,0.55);
+    opacity: 0; pointer-events: none; transition: opacity .3s ease, transform .3s ease; }
+  #dock.show { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0); }
+  #dock button { font-family: var(--sys); background: var(--paper); border: 2px solid var(--ink); width: 30px; height: 27px; cursor: pointer; box-shadow: 2px 2px 0 rgba(0,0,0,0.85); }
+  #dock button:hover { background: var(--ink); color: var(--paper); }
+  #dock .hk { font-family: var(--sys); font-size: 9px; color: var(--dim); letter-spacing: 0.5px; }
+  #dock .hk kbd { border: 1.5px solid rgba(0,0,0,0.4); padding: 0 3px; margin: 0 1px; }
   #notes { position: fixed; left: 0; right: 0; bottom: 0; z-index: 96; background: var(--paper); border-top: 3px solid var(--ink); padding: 16px 26px 20px; max-height: 44vh; overflow-y: auto; display: none; }
   #notes.show { display: block; }
   #notes h4 { font-family: var(--sys); font-size: 11px; background: var(--yellow); display: inline-block; padding: 4px 9px; border: 2px solid var(--ink); margin-bottom: 12px; }
   #notes .ntext { font-family: var(--pixel); color: var(--muted); font-size: 15px; line-height: 1.55; max-width: 1120px; }
   #notes .ntext li { margin-bottom: 6px; margin-left: 18px; }
+  /* overview / jump grid (press G) */
+  #overview { position: fixed; inset: 0; z-index: 97; background: rgba(20,19,16,0.84); display: none; padding: 5vh 6vw; overflow-y: auto; }
+  #overview.show { display: block; }
+  #overview h3 { font-family: var(--sys); font-size: 13px; color: var(--paper); margin-bottom: 18px; letter-spacing: 1px; }
+  #overview .ogrid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+  #overview .ocell { background: var(--paper); border: 2px solid var(--ink); box-shadow: 3px 3px 0 rgba(0,0,0,0.6); padding: 11px 12px 13px; cursor: pointer; min-height: 76px; display: flex; flex-direction: column; justify-content: space-between; }
+  #overview .ocell:hover { background: var(--yellow); }
+  #overview .ocell.cur { background: var(--yellow); box-shadow: 3px 3px 0 #fff; }
+  #overview .ocell .nn { font-family: var(--serif); font-size: 24px; line-height: 1; }
+  #overview .ocell .tt { font-family: var(--pixel); font-size: 12.5px; color: var(--muted); margin-top: 7px; }
+  /* blackout (press B) */
+  #blackout { position: fixed; inset: 0; z-index: 98; background: #000; opacity: 0; pointer-events: none; transition: opacity .25s ease; }
+  #blackout.show { opacity: 1; pointer-events: auto; }
 </style>
 </head>
 <body>
@@ -373,7 +389,7 @@
               <div class="rule"></div>
               <div class="two-col" style="gap:34px;">
                 <div class="profile">
-                  <div class="pic" style="background:#3f8f33; color:#fff;">T</div>
+                  <div class="pic"><img src="img/tommy.png" alt="Tommy" /></div>
                   <div>
                     <div class="nm">Tommy</div>
                     <div class="role">INVESTMENT ANALYSIS AGENT · TOMAHAWK.VC</div>
@@ -709,9 +725,14 @@
 </div>
 
 <div id="progress"></div>
-<div id="hint"><kbd>←</kbd> <kbd>→</kbd> NAV · <kbd>N</kbd> NOTES · <kbd>F</kbd> FULL</div>
-<div id="nav"><button id="prev" title="Previous (←)">‹</button><button id="next" title="Next (→)">›</button></div>
+<div id="dock">
+  <button id="prev" title="Previous (←)">‹</button>
+  <button id="next" title="Next (→)">›</button>
+  <span class="hk"><kbd>←</kbd><kbd>→</kbd> nav · <kbd>N</kbd> notes · <kbd>G</kbd> grid · <kbd>B</kbd> black · <kbd>F</kbd> full</span>
+</div>
 <div id="notes"><h4>SPEAKER NOTES</h4><div class="ntext" id="ntext"></div></div>
+<div id="overview"><h3>JUMP TO SLIDE — press G or Esc to close</h3><div class="ogrid" id="ogrid"></div></div>
+<div id="blackout"></div>
 
 <script>
   const slides = Array.from(document.querySelectorAll('.slide'));
@@ -723,7 +744,10 @@
   const progress = document.getElementById('progress');
   const notes = document.getElementById('notes');
   const ntext = document.getElementById('ntext');
-  let i = 0, notesOn = false, consoleTimer = null;
+  const dock = document.getElementById('dock');
+  const overview = document.getElementById('overview');
+  const blackout = document.getElementById('blackout');
+  let i = 0, notesOn = false, consoleTimer = null, dockTimer = null, overviewOn = false, blackOn = false;
 
   function updateNotes() {
     const raw = slides[i].getAttribute('data-notes') || '';
@@ -753,13 +777,15 @@
     statuscount.textContent = (i + 1) + ' / ' + slides.length;
     progress.style.width = (i / (slides.length - 1)) * 100 + '%';
     if (notesOn) updateNotes();
+    if (overviewOn) buildOverview();
     animateConsole();
+    try { history.replaceState(null, '', '#' + (i + 1)); } catch (e) {}
   }
   function go(n) { i = Math.max(0, Math.min(slides.length - 1, n)); render(); }
   const next = () => go(i + 1), prev = () => go(i - 1);
 
   function scale() {
-    const s = Math.min(window.innerWidth / 1368, (window.innerHeight - 64) / 894) * 0.98;
+    const s = Math.min(window.innerWidth / 1368, window.innerHeight / 894) * 0.98;
     machine.style.transform = 'scale(' + s + ')';
   }
   window.addEventListener('resize', scale);
@@ -767,15 +793,54 @@
   document.getElementById('next').onclick = next;
   document.getElementById('prev').onclick = prev;
 
+  // auto-hiding control dock — fades out after 2.5s of no mouse movement
+  function poke() { dock.classList.add('show'); clearTimeout(dockTimer); dockTimer = setTimeout(() => dock.classList.remove('show'), 2500); }
+  window.addEventListener('mousemove', poke);
+
+  // overview / jump grid (press G)
+  function buildOverview() {
+    const g = document.getElementById('ogrid');
+    g.innerHTML = '';
+    slides.forEach((s, idx) => {
+      const c = document.createElement('div');
+      c.className = 'ocell' + (idx === i ? ' cur' : '');
+      c.innerHTML = '<div class="nn">' + (idx + 1) + '</div><div class="tt">' + (s.dataset.title || '') + '</div>';
+      c.onclick = () => { go(idx); toggleOverview(false); };
+      g.appendChild(c);
+    });
+  }
+  function toggleOverview(force) {
+    overviewOn = (force === undefined) ? !overviewOn : force;
+    if (overviewOn) buildOverview();
+    overview.classList.toggle('show', overviewOn);
+  }
+  function toggleBlack(force) { blackOn = (force === undefined) ? !blackOn : force; blackout.classList.toggle('show', blackOn); }
+
+  // swipe navigation (for the public link on phones / tablets)
+  let tsx = null;
+  window.addEventListener('touchstart', (e) => { tsx = e.changedTouches[0].clientX; poke(); }, { passive: true });
+  window.addEventListener('touchend', (e) => {
+    if (tsx === null) return;
+    const dx = e.changedTouches[0].clientX - tsx;
+    if (Math.abs(dx) > 50) { if (dx < 0) next(); else prev(); }
+    tsx = null;
+  });
+
   let booted = false;
   document.addEventListener('keydown', (e) => {
     if (!booted) { endBoot(); return; }
+    const k = e.key.toLowerCase();
+    if (blackOn) { toggleBlack(false); return; }                              // any key clears blackout
+    if (overviewOn && (e.key === 'Escape' || k === 'g')) { toggleOverview(false); return; }
+    poke();
     if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); next(); }
     else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
     else if (e.key === 'Home') go(0);
     else if (e.key === 'End') go(slides.length - 1);
-    else if (e.key.toLowerCase() === 'n') { notesOn = !notesOn; notes.classList.toggle('show', notesOn); if (notesOn) updateNotes(); }
-    else if (e.key.toLowerCase() === 'f') { if (!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
+    else if (k === 'n') { notesOn = !notesOn; notes.classList.toggle('show', notesOn); if (notesOn) updateNotes(); }
+    else if (k === 'g') { toggleOverview(); }
+    else if (k === 'b') { toggleBlack(true); }
+    else if (k === 'f') { if (!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
   });
 
   // live clock
@@ -829,7 +894,14 @@
   }
   boot.addEventListener('click', endBoot);
 
-  scale(); render(); runBoot();
+  // deep-link: open directly on a slide (skip boot) when the URL has #N
+  (function initHash() {
+    const h = parseInt((location.hash || '').slice(1), 10);
+    if (h >= 1 && h <= slides.length) { i = h - 1; booted = true; boot.style.display = 'none'; }
+  })();
+  scale(); render();
+  if (!booted) runBoot();
+  poke();
 </script>
 </body>
 </html>
