@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Building &amp; Investing in the AI Era · Cédric Waldburger</title>
+<link rel="icon" type="image/png" href="img/logo-yellow.png" />
+<link rel="apple-touch-icon" href="img/logo-yellow.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Pixelify+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #ffffff;
+    --ink: #000000;
+    --muted: #2c2a24;
+    --dim: #6a675c;
+    --yellow: #f5d849;
+    --case: #e4dfd2;
+    --case-d: #cfcabd;
+    --term: #8fe06a;
+    --pixel: 'Pixelify Sans', ui-monospace, monospace;
+    --sys: 'Silkscreen', monospace;
+    --serif: 'Instrument Serif', Georgia, serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html, body { height: 100%; overflow: hidden; background: #b3afa3; font-family: var(--pixel); -webkit-font-smoothing: antialiased; }
+
+  /* ===== DESKTOP / STAGE ===== */
+  #stage { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+    background:
+      radial-gradient(ellipse 120% 90% at 50% 30%, #c4c0b3 0%, #aaa69a 70%, #97938a 100%);
+  }
+
+  /* ===== MACINTOSH CASE ===== */
+  #machine { position: relative; flex: none; width: 1368px; height: 894px; transform-origin: center center;
+    background: linear-gradient(168deg, #e9e4d7 0%, var(--case) 42%, var(--case-d) 100%);
+    border-radius: 30px; padding: 24px 28px 0;
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,0.75),
+      inset 0 -3px 6px rgba(0,0,0,0.18),
+      0 2px 0 rgba(255,255,255,0.4),
+      14px 16px 0 rgba(0,0,0,0.20),
+      0 18px 46px rgba(0,0,0,0.38);
+  }
+
+  /* dark recess around the tube */
+  #recess { position: relative; height: 768px; border-radius: 24px;
+    background: linear-gradient(180deg, #1a1916, #2a2722);
+    padding: 15px;
+    box-shadow: inset 0 4px 10px rgba(0,0,0,0.7), inset 0 -1px 2px rgba(255,255,255,0.2), 0 1px 0 rgba(255,255,255,0.5); }
+
+  /* ===== CRT SCREEN ===== */
+  #crt { position: relative; width: 100%; height: 100%; border-radius: 13px; overflow: hidden;
+    background: #fff; box-shadow: inset 0 0 90px rgba(0,0,0,0.40), inset 0 0 20px rgba(0,0,0,0.30); }
+
+  /* wallpaper (dither) */
+  #wall { position: absolute; inset: 0; z-index: 0;
+    background: repeating-conic-gradient(#9d988b 0% 25%, #b6b2a6 0% 50%); background-size: 4px 4px; }
+
+  /* ===== MENU BAR ===== */
+  .menubar { position: absolute; top: 0; left: 0; right: 0; height: 34px; z-index: 40;
+    background: var(--paper); border-bottom: 2px solid var(--ink);
+    display: flex; align-items: center; gap: 4px; padding: 0 16px 0 12px; font-family: var(--sys); font-size: 12px; }
+  .menubar .mark { width: 20px; height: 20px; margin-right: 10px; image-rendering: pixelated; }
+  .menubar .mi { padding: 4px 9px; letter-spacing: 0.5px; cursor: default; }
+  .menubar .mi:hover { background: var(--ink); color: var(--paper); }
+  .menubar .spacer { flex: 1; }
+  .menubar .ctx { color: var(--dim); letter-spacing: 1px; }
+  .menubar .clock { margin-left: 14px; padding: 4px 8px; }
+
+  /* ===== WINDOW (the slide) ===== */
+  #window { position: absolute; left: 12px; right: 12px; top: 44px; bottom: 12px; z-index: 20;
+    background: var(--paper); border: 2px solid var(--ink); box-shadow: 8px 8px 0 rgba(0,0,0,0.9);
+    display: flex; flex-direction: column; overflow: hidden; }
+
+  .titlebar { height: 28px; flex: none; border-bottom: 2px solid var(--ink); position: relative;
+    display: flex; align-items: center; justify-content: center; background: var(--paper); }
+  .titlebar .stripes { position: absolute; left: 32px; right: 12px; top: 7px; height: 14px;
+    background: repeating-linear-gradient(180deg, var(--ink) 0 2px, transparent 2px 4px); }
+  .titlebar .close { position: absolute; left: 9px; top: 5px; width: 16px; height: 16px; background: var(--paper); border: 2px solid var(--ink); z-index: 2; }
+  .titlebar .wt { position: relative; background: var(--paper); padding: 0 16px; font-family: var(--sys); font-size: 12px; white-space: nowrap; max-width: 70%; overflow: hidden; text-overflow: ellipsis; z-index: 1; }
+  .titlebar .turnchip { position: absolute; right: 8px; top: 3px; display: none; align-items: center; gap: 6px;
+    background: var(--yellow); border: 2px solid var(--ink); padding: 2px 9px; font-family: var(--sys); font-size: 10px; z-index: 2; }
+  /* room / interactive mode — subtle: yellow drop-shadow + chip, no full-bar flip */
+  #window.you { border-color: var(--ink); box-shadow: 8px 8px 0 var(--yellow); }
+  #window.you .titlebar .turnchip { display: inline-flex; background: var(--ink); color: var(--yellow); border-color: var(--ink); }
+  .turnchip .dot { width: 7px; height: 7px; background: currentColor; border-radius: 50%; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0.15; } }
+
+  #screen { position: relative; flex: 1; overflow: hidden; background: var(--paper); }
+  .slide { position: absolute; inset: 0; padding: 42px 56px 24px; display: none; flex-direction: column; }
+  .slide.active { display: flex; }
+
+  .statusbar { height: 26px; flex: none; border-top: 2px solid var(--ink); background: var(--paper);
+    display: flex; align-items: center; justify-content: space-between; padding: 0 14px; font-family: var(--sys); font-size: 10px; color: var(--dim); }
+
+  /* ===== CRT GLASS ===== */
+  #glass { position: absolute; inset: 0; z-index: 60; pointer-events: none; border-radius: 13px; overflow: hidden; }
+  #glass .scan { position: absolute; inset: 0; opacity: 0.05; background: repeating-linear-gradient(180deg, rgba(0,0,0,0.6) 0 2px, transparent 2px 5px); }
+  #glass .bloom { position: absolute; inset: 0; opacity: 0.10; background: radial-gradient(ellipse 60% 55% at 50% 42%, rgba(255,255,255,0.7), transparent 72%); }
+  #glass .vig { position: absolute; inset: 0; opacity: 0.55; background: radial-gradient(ellipse 96% 94% at center, transparent 52%, rgba(0,0,0,0.18) 82%, rgba(0,0,0,0.5) 100%); }
+  #glass .glare { position: absolute; inset: 0; opacity: 0.5; background: radial-gradient(ellipse 32% 16% at 24% 7%, rgba(255,255,255,0.6), transparent 70%); }
+
+  /* ===== CASE CHIN ===== */
+  #chin { height: 78px; display: flex; align-items: center; justify-content: space-between; padding: 0 18px; }
+  #chin .lock { display: flex; align-items: center; gap: 14px; }
+  #chin .lock img { width: 34px; height: 34px; filter: grayscale(0.4) brightness(0.95) opacity(0.62) drop-shadow(0 1px 0 rgba(255,255,255,0.7)); }
+  #chin .bn { font-family: var(--sys); font-weight: 700; font-size: 15px; letter-spacing: 1.5px; color: #6e6959; text-shadow: 0 1px 0 rgba(255,255,255,0.7); }
+  #chin .bs { font-family: var(--sys); font-size: 9px; letter-spacing: 1px; color: #948e7d; text-shadow: 0 1px 0 rgba(255,255,255,0.6); margin-top: 3px; }
+  #chin .right { display: flex; align-items: center; gap: 18px; }
+  #chin .led { width: 8px; height: 8px; border-radius: 50%; background: var(--yellow); box-shadow: 0 0 8px 1px rgba(245,216,73,0.8), inset 0 0 2px rgba(0,0,0,0.3); }
+  #chin .vent { width: 140px; height: 9px; border-radius: 5px; background: #2a2823; box-shadow: inset 0 2px 4px rgba(0,0,0,0.85), 0 1px 0 rgba(255,255,255,0.55); }
+  #chin .power { width: 40px; height: 40px; border-radius: 50%; background: #c6c1b2; border: 2px solid #a09b8b;
+    box-shadow: inset 0 -3px 4px rgba(0,0,0,0.16), inset 0 2px 2px rgba(255,255,255,0.7), 0 1px 2px rgba(0,0,0,0.25);
+    display: flex; align-items: center; justify-content: center; }
+  #chin .power .ring { position: relative; width: 15px; height: 15px; border: 3px solid #5f5b4c; border-radius: 50%; }
+  #chin .power .ring::after { content: ""; position: absolute; left: 50%; top: -7px; transform: translateX(-50%); width: 3px; height: 9px; background: #5f5b4c; box-shadow: 0 0 0 2px #c6c1b2; }
+
+  /* ===================== TYPOGRAPHY ===================== */
+  .kicker { font-family: var(--sys); font-size: 12px; margin-bottom: 16px; }
+  .kicker .b { background: var(--yellow); padding: 3px 8px; border: 2px solid var(--ink); box-shadow: 2px 2px 0 rgba(0,0,0,0.85); }
+  h1, h2 { font-family: var(--serif); font-weight: 400; color: var(--ink); letter-spacing: -0.4px; }
+  h2 { font-size: 46px; line-height: 1.18; }
+  .it { font-style: italic; }
+  .hl { background: var(--yellow); padding: 0 7px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+  .rule { height: 2px; background: var(--ink); margin: 14px 0 24px; }
+  .lead { font-family: var(--pixel); color: var(--muted); font-size: 22px; line-height: 1.5; }
+
+  .center { justify-content: center; }
+  .title-wrap { max-width: 660px; }
+  .title-wrap h1 { font-size: 60px; line-height: 1.04; }
+  .tagline { font-family: var(--serif); font-style: italic; font-size: 30px; color: var(--ink); margin-top: 14px; }
+  .title-meta { font-family: var(--pixel); margin-top: 24px; color: var(--muted); font-size: 18px; line-height: 1.5; }
+  .title-meta b { color: var(--ink); }
+  .title-meta .web { margin-top: 8px; font-family: var(--sys); font-size: 12px; color: var(--dim); letter-spacing: 0.5px; }
+  .title-sub { font-family: var(--sys); font-size: 12px; margin-top: 18px; color: var(--dim); letter-spacing: 0.5px; }
+
+  .divider .num { font-family: var(--serif); font-size: 150px; line-height: 0.78; }
+  .divider h1 { font-size: 64px; margin-top: 4px; }
+  .divider .epi { font-family: var(--serif); font-style: italic; font-size: 30px; color: var(--muted); margin-top: 22px; max-width: 760px; line-height: 1.2; }
+  .divider .epi .q { color: var(--ink); }
+
+  .grid { display: grid; gap: 16px; }
+  .g2 { grid-template-columns: 1fr 1fr; }
+  .g3 { grid-template-columns: repeat(3, 1fr); }
+  .g4 { grid-template-columns: repeat(4, 1fr); }
+  .card { background: var(--paper); border: 2px solid var(--ink); box-shadow: 4px 4px 0 rgba(0,0,0,0.85); padding: 18px 20px; }
+  .card h3 { font-family: var(--pixel); font-weight: 700; font-size: 19px; margin-bottom: 5px; }
+  .card p { font-family: var(--pixel); color: var(--muted); font-size: 14px; line-height: 1.4; }
+  .card .big { font-family: var(--serif); font-size: 44px; line-height: 1; }
+  .card.lab { box-shadow: 4px 4px 0 var(--yellow); }
+
+  ul.checks { list-style: none; }
+  ul.checks li { padding: 13px 0 13px 30px; position: relative; font-family: var(--pixel); font-size: 21px; line-height: 1.32; color: var(--ink); border-bottom: 2px dotted var(--ink); }
+  ul.checks li:last-child { border-bottom: none; }
+  ul.checks li::before { content: ""; position: absolute; left: 0; top: 20px; width: 11px; height: 11px; background: var(--ink); }
+  ul.checks li b { font-weight: 700; }
+  ul.checks li span { color: var(--dim); font-size: 16px; }
+  ul.checks.yes li::before { background: #3f8f33; }
+  ul.checks.no li::before { content: "✕"; background: none; font-family: var(--sys); font-size: 12px; color: #c23b3b; top: 13px; }
+  ul.checks.tight li { padding: 9px 0 9px 28px; font-size: 18px; border-bottom: none; }
+  ul.checks.tight li::before { top: 14px; width: 9px; height: 9px; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; flex: 1; align-content: start; }
+
+  .prompt { font-family: var(--serif); font-size: 44px; line-height: 1.16; color: var(--ink); max-width: 1020px; }
+  .subprompt { font-family: var(--pixel); color: var(--dim); font-size: 18px; line-height: 1.5; margin-top: 22px; max-width: 920px; }
+  .quote { font-family: var(--serif); font-size: 34px; line-height: 1.2; color: var(--ink); max-width: 1000px; margin-top: 20px; }
+
+  .funnel { display: flex; margin-top: 6px; gap: 18px; }
+  .funnel .step { flex: 1; border: 2px solid var(--ink); box-shadow: 4px 4px 0 rgba(0,0,0,0.85); padding: 15px 16px; background: var(--paper); position: relative; }
+  .funnel .step .n { font-family: var(--sys); font-size: 10px; color: var(--dim); }
+  .funnel .step h4 { font-family: var(--pixel); font-weight: 700; font-size: 19px; margin: 7px 0 5px; }
+  .funnel .step p { font-family: var(--pixel); font-size: 13.5px; color: var(--muted); line-height: 1.4; }
+  .funnel .step:not(:last-child)::after { content: "▸"; position: absolute; right: -15px; top: 50%; transform: translateY(-50%); font-size: 16px; color: var(--ink); z-index: 2; }
+
+  .term { background: var(--ink); border: 2px solid var(--ink); box-shadow: 5px 5px 0 rgba(0,0,0,0.5); padding: 20px 24px; font-family: var(--pixel); font-size: 17px; line-height: 1.78; color: #e8e8e8; }
+  .term.big { font-size: 19px; line-height: 1.98; padding: 24px 28px; }
+  .term .p { color: var(--term); } .term .ok { color: var(--term); } .term .warn { color: var(--yellow); } .term .c { color: #8a8a8a; } .term .b2 { color: #6fb6ff; }
+  .term .blink::after { content: "▋"; animation: blink 1s steps(1) infinite; color: var(--term); }
+  .term .tline { opacity: 0; transform: translateY(3px); transition: opacity .22s ease, transform .22s ease; }
+  .term .tline.show { opacity: 1; transform: none; }
+  .contract { background: var(--ink); border: 2px solid var(--ink); padding: 20px 24px; font-family: var(--pixel); font-size: 16px; line-height: 1.8; color: #e0e0e0; box-shadow: 5px 5px 0 rgba(0,0,0,0.5); }
+  .contract .k { color: var(--term); } .contract .v { color: var(--yellow); } .contract .c { color: #777; }
+
+  /* agent profile */
+  .profile { display: flex; gap: 18px; align-items: flex-start; }
+  .profile .pic { width: 92px; height: 92px; flex: none; border: 3px solid var(--ink); box-shadow: 5px 5px 0 rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 52px; line-height: 1; color: var(--ink); }
+  .profile .nm { font-family: var(--pixel); font-weight: 700; font-size: 28px; }
+  .profile .role { font-family: var(--sys); font-size: 10px; color: var(--dim); margin: 5px 0 9px; letter-spacing: 0.5px; }
+  .profile .desc { font-family: var(--pixel); font-size: 16px; color: var(--muted); line-height: 1.45; }
+
+  .linkrow { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+  .linkrow a { font-family: var(--sys); font-size: 11px; text-decoration: none; color: var(--ink); background: var(--paper); border: 2px solid var(--ink); box-shadow: 3px 3px 0 rgba(0,0,0,0.85); padding: 9px 13px; }
+  .linkrow a:hover { background: var(--ink); color: var(--paper); }
+  .linkrow a .s { display: block; font-size: 8.5px; color: var(--dim); margin-top: 3px; }
+  .linkrow a:hover .s { color: #bbb; }
+
+  .runlist .row { display: grid; grid-template-columns: 96px 1fr; gap: 18px; padding: 11px 0; border-bottom: 2px dotted var(--ink); align-items: baseline; }
+  .runlist .row:last-child { border-bottom: none; }
+  .runlist .time { font-family: var(--sys); font-size: 12px; background: var(--yellow); border: 2px solid var(--ink); padding: 4px 0; text-align: center; box-shadow: 2px 2px 0 rgba(0,0,0,0.85); }
+  .runlist .what { font-family: var(--pixel); font-size: 20px; }
+  .runlist .what b { font-weight: 700; }
+  .runlist .what span { display: block; color: var(--dim); font-size: 15px; margin-top: 1px; }
+
+  .funrow { margin-top: 16px; }
+  .fun { display: inline-block; font-family: var(--pixel); font-weight: 600; font-size: 17px; white-space: nowrap; background: var(--yellow); border: 2px solid var(--ink); padding: 9px 15px; box-shadow: 4px 4px 0 rgba(0,0,0,0.85); }
+  .fun::before { content: "★ "; }
+  .note { font-family: var(--pixel); font-size: 15px; color: var(--dim); margin-top: 18px; }
+  .note b { color: var(--ink); }
+  .contacts { display: inline-block; margin-top: 18px; font-family: var(--sys); font-size: 12px; color: var(--ink); background: var(--yellow); border: 2px solid var(--ink); box-shadow: 3px 3px 0 rgba(0,0,0,0.85); padding: 8px 12px; line-height: 1.9; }
+
+  /* tools grid */
+  .tool { background: var(--paper); border: 2px solid var(--ink); box-shadow: 4px 4px 0 rgba(0,0,0,0.85); padding: 12px 14px; }
+  .tool .t { font-family: var(--sys); font-size: 8.5px; color: var(--dim); }
+  .tool h4 { font-family: var(--pixel); font-weight: 700; font-size: 17px; margin-top: 2px; }
+  .tool p { font-family: var(--pixel); font-size: 12.5px; color: var(--muted); line-height: 1.38; margin-top: 3px; }
+
+  /* framed photos */
+  .photo { background: var(--paper); border: 3px solid var(--ink); box-shadow: 9px 9px 0 rgba(0,0,0,0.85); display: inline-block; }
+  .photo img { display: block; object-fit: cover; width: 100%; }
+  .photo .cap { font-family: var(--sys); font-size: 8.5px; color: var(--dim); text-align: center; padding: 5px 0 4px; border-top: 2px solid var(--ink);
+    background: repeating-linear-gradient(180deg, rgba(0,0,0,0.05) 0 2px, transparent 2px 4px); }
+  .rotL { transform: rotate(-2.5deg); } .rotR { transform: rotate(2.5deg); }
+  .strip { display: flex; gap: 10px; }
+  .strip .photo { box-shadow: 5px 5px 0 rgba(0,0,0,0.85); border-width: 2px; }
+
+  /* ===== BOOT OVERLAY ===== */
+  #boot { position: absolute; inset: 0; z-index: 70; background: #000; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 22px; cursor: pointer; transition: opacity 0.6s ease; }
+  #boot.hide { opacity: 0; pointer-events: none; }
+  #boot img { width: 72px; height: 72px; animation: bootblink 1.3s steps(1) infinite; filter: drop-shadow(0 0 14px rgba(245,216,73,0.4)); }
+  @keyframes bootblink { 0%,49% { opacity: 1; } 50%,100% { opacity: 0.25; } }
+  #boot .log { width: 470px; max-width: 86%; min-height: 230px; display: flex; flex-direction: column; gap: 6px; }
+  #boot .log .ln { font-family: var(--sys); font-size: 14px; white-space: pre; color: #cfcfcf; text-shadow: 0 0 6px rgba(255,255,255,0.3); }
+  #boot .log .ln .h { color: var(--yellow); text-shadow: 0 0 7px rgba(245,216,73,0.7); }
+  #boot .log .ln.dim { color: #7d7d7d; }
+  #boot .bar { width: 300px; max-width: 80%; height: 16px; border: 2px solid #fff; padding: 2px; }
+  #boot .bar .fill { height: 100%; width: 0%; background: repeating-linear-gradient(90deg, #fff 0 6px, #000 6px 8px); transition: width 0.3s linear; }
+  #boot .skip { font-family: var(--pixel); font-size: 13px; color: #666; }
+
+  /* ===== CONTROLS — all bottom-left stack ===== */
+  #progress { position: fixed; bottom: 0; left: 0; height: 4px; background: var(--yellow); width: 0%; z-index: 90; transition: width 0.25s ease; }
+  #hint { position: fixed; bottom: 54px; left: 20px; z-index: 95; font-family: var(--sys); color: rgba(0,0,0,0.4); font-size: 10px; }
+  #hint kbd { border: 1.5px solid rgba(0,0,0,0.4); padding: 0 4px; }
+  #nav { position: fixed; bottom: 16px; left: 18px; right: auto; z-index: 95; display: flex; gap: 6px; opacity: 0.3; transition: opacity 0.2s; }
+  #nav:hover { opacity: 1; }
+  #nav button { font-family: var(--sys); background: var(--paper); border: 2px solid var(--ink); width: 32px; height: 30px; cursor: pointer; box-shadow: 2px 2px 0 rgba(0,0,0,0.85); }
+  #nav button:hover { background: var(--ink); color: var(--paper); }
+  #notes { position: fixed; left: 0; right: 0; bottom: 0; z-index: 96; background: var(--paper); border-top: 3px solid var(--ink); padding: 16px 26px 20px; max-height: 44vh; overflow-y: auto; display: none; }
+  #notes.show { display: block; }
+  #notes h4 { font-family: var(--sys); font-size: 11px; background: var(--yellow); display: inline-block; padding: 4px 9px; border: 2px solid var(--ink); margin-bottom: 12px; }
+  #notes .ntext { font-family: var(--pixel); color: var(--muted); font-size: 15px; line-height: 1.55; max-width: 1120px; }
+  #notes .ntext li { margin-bottom: 6px; margin-left: 18px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="machine">
+    <div id="recess">
+      <div id="crt">
+        <div id="wall"></div>
+
+        <!-- MENU BAR -->
+        <div class="menubar">
+          <img class="mark" src="img/logo-yellow.png" alt="cs" />
+          <span class="mi">File</span><span class="mi">Agents</span><span class="mi">Special</span>
+          <span class="spacer"></span><span class="ctx">SFF STUDIO · 2026</span><span class="mi clock" id="clock">2:00 PM</span>
+        </div>
+
+        <!-- WINDOW (slide) -->
+        <div id="window">
+          <div class="titlebar" id="titlebar">
+            <span class="stripes"></span>
+            <span class="close"></span>
+            <span class="wt" id="wintitle">Welcome</span>
+            <span class="turnchip"><span class="dot"></span>YOUR TURN</span>
+          </div>
+
+          <div id="screen">
+
+            <!-- 1 · TITLE -->
+            <section class="slide active center" data-title="Welcome.app" data-notes="
+              <li><b>Open low-key.</b> 'Everything here is how I actually run things right now — I'd rather argue with you than talk at you.'</li>
+              <li><b>The format (agreed with SFF):</b> '~45 min from me, then the rest is yours — questions, building, any direction you want.'</li>
+              <li><b>House rules — say them, don't slide them:</b> interrupt me, steal the mic, derail the plan. My belief: 90% of blockers are bullshit; most process exists to make slow people feel busy. You'll leave with a working agent and a sharper sense of what I look for.</li>
+              <li><b>The hook — the tagline:</b> 'My goal is 100 companies with 3 people.' AI collapsed the cost of starting and running a company, so a tiny team can take a hundred shots. Today is about how — building AND investing.</li>
+              <li>Don't reveal it yet, but: these slides were built by my agent Thea. (Save it for the principles slide.)</li>">
+              <div class="title-wrap">
+                <div class="kicker"><span class="b">CODE &amp; STATE × TOMAHAWK.VC</span></div>
+                <h1>Building &amp; Investing<br />in the <span class="hl">AI Era</span></h1>
+                <div class="tagline">My goal: <span class="hl">100 companies with 3 people.</span></div>
+                <div class="title-meta">
+                  <div><b>Cédric Waldburger</b></div>
+                  <div>SFF Studio Mentor Bootcamp</div>
+                  <div>25 June 2026 · 2–5 PM CET</div>
+                  <div class="web">cedricwaldburger.com</div>
+                </div>
+                <div class="title-sub">LESS TALKING, MORE BUILDING. HECKLING ENCOURAGED.</div>
+              </div>
+              <figure class="photo rotR" style="position:absolute; right:64px; top:84px; width:262px;">
+                <img src="img/portrait.png" style="height:312px" alt="Cédric Waldburger" />
+                <div class="cap">CEDRIC.JPG</div>
+              </figure>
+            </section>
+
+            <!-- 2 · ABOUT -->
+            <section class="slide" data-title="About.app" data-notes="
+              <li>Keep it SHORT — the photos do the talking. Pilot, diver, photographer, dad, builder, investor.</li>
+              <li>Essentialism, lightly: lived out of one backpack ~9 years; settled now (kids) — but the instinct stuck: fewer things, done better. Don't oversell the minimalism, it invites a boring 'you seem settled now' detour.</li>
+              <li><b>The numbers are the real proof</b> you operate at scale with a tiny team — CONFIRM the exact counts before stage (the slide shows ## placeholders).</li>
+              <li>Build (DFINITY · Sendtask · Liquity) · Invest (Tomahawk.VC · Tenderloin Ventures) · Studio (Code &amp; State). Two daughters — the actual point; everything else is logistics.</li>">
+              <div class="kicker"><span class="b">ABOUT ME</span></div>
+              <h2>I build things, invest early,<br />and <span class="hl">keep it essential</span></h2>
+              <div class="rule"></div>
+              <div class="two-col" style="grid-template-columns: 1fr 1.04fr; gap: 34px;">
+                <div>
+                  <p class="lead">Swiss. Builder, early-stage investor, pilot, photographer, dad. First company at 14 — couldn't stop if I tried.</p>
+                  <div class="grid g2" style="margin-top:18px; gap:12px;">
+                    <div class="card"><div class="big">50</div><h3>Investments</h3><p>Tomahawk.VC + Tenderloin Ventures</p></div>
+                    <div class="card lab"><div class="big">100</div><h3>The goal</h3><p>companies — with 3 people</p></div>
+                  </div>
+                  <ul class="checks tight" style="margin-top:16px;">
+                    <li><b>Build</b> — DFINITY · Sendtask · Liquity</li>
+                    <li><b>Invest</b> — Tomahawk.VC · Tenderloin Ventures</li>
+                    <li><b>Studio</b> — Code &amp; State</li>
+                  </ul>
+                </div>
+                <div style="display:flex; flex-direction:column; align-items:center; gap:14px;">
+                  <div class="strip" style="gap:14px;">
+                    <figure class="photo rotL"><img src="img/heli.png" style="height:152px;width:124px" alt="adventure pilot" /><div class="cap">ADVENTURE PILOT</div></figure>
+                    <figure class="photo rotR"><img src="img/hornbill.png" style="height:152px;width:124px" alt="photography" /><div class="cap">PHOTOGRAPHY</div></figure>
+                  </div>
+                  <div class="strip" style="gap:14px;">
+                    <figure class="photo rotR"><img src="img/aircraft.png" style="height:152px;width:124px" alt="flying" /><div class="cap">ZU-WBG</div></figure>
+                    <figure class="photo rotL"><img src="img/diving.png" style="height:152px;width:124px" alt="diving" /><div class="cap">UNDERWATER</div></figure>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- 3 · QUICK ROUND -->
+            <section class="slide" data-title="Quick Round" data-mode="you" data-notes="
+              <li>Fast — ~5 min, every voice. Goal: gauge how far each founder already runs on AI.</li>
+              <li>Listen for the DELTA: what did automating it free them to do? Note the boldest example — reuse it in the workshop.</li>
+              <li>~30s each. React with a one-liner, keep it moving.</li>">
+              <div class="kicker"><span class="b">QUICK ROUND · ~5 MIN</span></div>
+              <h2>One thing you've <span class="hl">recently automated</span></h2>
+              <div class="rule"></div>
+              <p class="prompt">Name · what you're building · <span class="hl">one thing you automated in your business lately.</span></p>
+              <p class="subprompt">Even a small one. I want to see how far each of you already runs on AI — it tells me where to take the next two hours.</p>
+            </section>
+
+            <!-- 4 · DIVIDER: INVESTING -->
+            <section class="slide divider center" data-title="01 — Investing" data-notes="
+              <li>Hat 1: investor. This whole section is run BY my fund agent Tommy — introduce him as a real teammate, not a feature.</li>
+              <li>Frame: 'I run Tomahawk.VC largely with agents. Let me show you how — and what that makes me look for in AI-era companies.'</li>
+              <li>This is a live-demo section: be ready to open the real Missive threads (next slides) on screen.</li>">
+              <div class="num">01</div>
+              <h1>Investing in the <span class="hl">AI Era</span></h1>
+              <div class="epi">&ldquo;<span class="q">I run the fund with a team of agents. Let me introduce Tommy.</span>&rdquo;</div>
+            </section>
+
+            <!-- 5 · MEET TOMMY -->
+            <section class="slide" data-title="agent · tommy" data-notes="
+              <li>[TOMMY TO SUPPLY] real role, the scale of deal-flow he handles, and his actual skills. Placeholder copy on the slide until his content lands.</li>
+              <li>Introduce him as a colleague: 'This is Tommy. He sees every deal before I do.'</li>
+              <li>His team: Tommy quarterbacks, Kestrel red-teams the case, Thea handles the comms. Three agents, one analyst's job — done overnight.</li>">
+              <div class="kicker"><span class="b">MY FUND TEAM · TOMAHAWK.VC</span></div>
+              <h2>Meet <span class="hl">Tommy</span>, my fund analyst</h2>
+              <div class="rule"></div>
+              <div class="two-col" style="gap:34px;">
+                <div class="profile">
+                  <div class="pic" style="background:#3f8f33; color:#fff;">T</div>
+                  <div>
+                    <div class="nm">Tommy</div>
+                    <div class="role">INVESTMENT ANALYSIS AGENT · TOMAHAWK.VC</div>
+                    <div class="desc">Runs the full deal pipeline from inbound email to my desk. He doesn't decide — he makes sure every deal is either killed cleanly or arrives fully dissected and IC-ready. Closes the loop in 48 hours.</div>
+                  </div>
+                </div>
+                <div>
+                  <div class="kicker" style="margin-bottom:10px;"><span class="b">WHAT HE KNOWS · HOW WE SPLIT</span></div>
+                  <ul class="checks tight">
+                    <li>The thesis — <b>Founder 40 · Market 30 · Moat 30</b></li>
+                    <li>The whole portfolio — <b>32 investments</b> across TH I–III</li>
+                    <li><b>Tommy</b> scores · <b>Kestrel</b> red-teams blind · <b>Thea</b> does outreach</li>
+                  </ul>
+                  <p class="note">Pre-seed / seed · $100–500K first check · software-first · US / EU / GCC.</p>
+                </div>
+              </div>
+            </section>
+
+            <!-- 6 · HOW TOMMY LOOKS AT OPPORTUNITIES -->
+            <section class="slide" data-title="deal-flow" data-notes="
+              <li>Open the music-licensing case live (12 messages, 3 DD rounds) — scroll the audit-comment chain so they SEE Tommy + Kestrel working inside the thread. (Real company names show once the thread opens — they're anonymized on the public slide.)</li>
+              <li>The story to tell: Tommy scored it DISCUSS 2/5; Kestrel came back PASS 1/5 — many years + heavy capital raised to reach only modest ARR, and the exit comps didn't support the multiple the founders implied. Kestrel overrode me. That divergence is exactly the signal I need to see.</li>
+              <li>The robotics case = a single investor-update message (lighter); the vertical-SaaS case = a clean mechanical stage-decline (raised a lot, only ~$1M ARR, too late-stage for us). Lead with music-licensing.</li>">
+              <div class="kicker"><span class="b">DEMO · HOW WE RUN DEAL-FLOW</span></div>
+              <h2>From inbound to <span class="hl">investment case</span></h2>
+              <div class="rule"></div>
+              <div class="funnel">
+                <div class="step"><div class="n">INBOUND</div><h4>It lands</h4><p>Email → Missive → Thea flags → Tommy picks up. Every deal, first.</p></div>
+                <div class="step"><div class="n">&lt; 2 HRS</div><h4>Triage + research</h4><p>Auto-decline the no's; go deep on the rest, 30–90 min each.</p></div>
+                <div class="step"><div class="n">SCORE</div><h4>Founder · Market · Moat</h4><p>Weighted. PURSUE ≥4 · DISCUSS 3–4 · PASS &lt;3.</p></div>
+                <div class="step"><div class="n">RED-TEAM</div><h4>Kestrel attacks it</h4><p>Blind 1–5 counter-memo. Then outreach waits for my yes.</p></div>
+              </div>
+              <p class="note" style="margin-top:18px;">Pull up a real case live — it all lives in Missive (open the music-licensing one, it's the richest thread):</p>
+              <div class="linkrow">
+                <a href="https://mail.missiveapp.com/#inbox/conversations/71f031c3-abc5-4b54-94af-3419228018b0" target="_blank">MUSIC LICENSING<span class="s">full DD · Tommy + Kestrel</span></a>
+                <a href="https://mail.missiveapp.com/#inbox/conversations/5075bd6a-17ae-44e6-af19-c3b89182eaaf" target="_blank">ROBOTICS · AI<span class="s">investor update + new round</span></a>
+                <a href="https://mail.missiveapp.com/#inbox/conversations/ef4b881e-6b70-4d74-9d20-d25f5811d60c" target="_blank">VERTICAL SAAS<span class="s">growth-stage · stage screen</span></a>
+              </div>
+            </section>
+
+            <!-- 7 · CONSOLE DEMO (investing workflow) -->
+            <section class="slide" data-title="Console · investment case" data-notes="
+              <li>This is a faithful replay of a REAL case Tommy ran today (task 14m32s). Let the lines animate, narrate each. (Company anonymized on the slide — open the live Missive thread to show the real one.)</li>
+              <li>The arc that lands: Tommy said DISCUSS, Kestrel said PASS — and Kestrel WON. No confirmation bias, because Kestrel scores blind before seeing Tommy's number. The divergence is the signal.</li>
+              <li>The punchline is the last line + the note: 14 min of agent work → 90 seconds of mine. Anything external (the decline email) waits for my yes. Have the real Missive thread open as the live version / fallback.</li>">
+              <div class="kicker"><span class="b">DEMO · WATCH ONE CASE RUN</span></div>
+              <h2>Tommy runs the case. <span class="hl">I just decide.</span></h2>
+              <div class="rule"></div>
+              <div class="term big" data-animate>
+                <div class="tline"><span class="c">// a real case · DD round 4 · today</span></div>
+                <div class="tline"><span class="p">tommy ▸</span> read thread (12 msgs) + the thesis</div>
+                <div class="tline"><span class="p">tommy ▸</span> score: founder 2 · market 2 · moat 2</div>
+                <div class="tline">&nbsp;&nbsp;<span class="warn">→ DISCUSS 2.0</span> · Notion card + IC memo written</div>
+                <div class="tline"><span class="b2">kestrel ▸</span> blind counter-review</div>
+                <div class="tline">&nbsp;&nbsp;✗ £18M raised → £1.45M ARR · exit math fails</div>
+                <div class="tline">&nbsp;&nbsp;<span class="warn">conviction 1/5 → PASS</span></div>
+                <div class="tline"><span class="p">tommy ▸</span> integrates · upgrades to PASS 1/5</div>
+                <div class="tline warn">&nbsp;&nbsp;⚠ decline drafted + assigned to Cédric. Send? [y/n] <span class="blink"></span></div>
+              </div>
+              <p class="note"><b>14 minutes of Tommy's time. 90 seconds of mine</b> — I read the conclusion, agree with the PASS, hit send.</p>
+            </section>
+
+            <!-- 8 · WHAT I LOOK FOR -->
+            <section class="slide" data-title="What I look for" data-notes="
+              <li>This is the takeaway of the investing section — say it slowly, it's what they came for.</li>
+              <li>Velocity is my single best predictor: your progress between two conversations two weeks apart.</li>
+              <li>Tie back: 'I can run a fund with three people because of automation + leverage. I back founders who do the same.'</li>">
+              <div class="kicker"><span class="b">WHAT I BACK IN THE AI ERA</span></div>
+              <h2>What I look for in <span class="hl">AI-era companies</span></h2>
+              <div class="rule"></div>
+              <ul class="checks">
+                <li><b>A high degree of automation</b> <span>— the team stays tiny because agents do the work.</span></li>
+                <li><b>Extreme speed</b> <span>— velocity between two conversations is my single best signal.</span></li>
+                <li><b>Real leverage</b> <span>— they use AI to do far more than a team their size used to.</span></li>
+              </ul>
+              <p class="quote">At pre-seed, <span class="hl">you are the data.</span> Show me you move faster than everyone else.</p>
+            </section>
+
+            <!-- 9 · WORKSHOP: BUILD AN AGENT -->
+            <section class="slide" data-title="Workshop · build an agent" data-mode="you" data-notes="
+              <li>Hands-on. Pairs or threes. Goal: everyone leaves with one workflow they can actually run again.</li>
+              <li>Walk the three steps, then float. Steer them to repeatable + low-stakes + clear input/output. Build on Claude (Code / project).</li>
+              <li>Materials + this deck + the prompts go on a public GitHub link so they can pull them up and copy. [Publish the repo before stage.]</li>
+              <li>If a pair nails it, run their agent live with me as the first user.</li>">
+              <div class="kicker"><span class="b">WORKSHOP · PAIR UP (2–3)</span></div>
+              <h2>Build an <span class="hl">agent</span> together</h2>
+              <div class="rule"></div>
+              <div class="runlist">
+                <div class="row"><div class="time">STEP 1</div><div class="what"><b>Pick one thing to automate.</b><span>A repeatable task that eats time but doesn't need you. Steal one from the round.</span></div></div>
+                <div class="row"><div class="time">STEP 2</div><div class="what"><b>Give it the information it needs.</b><span>Use the contract framework (next slide): role · inputs · steps · never · escalate.</span></div></div>
+                <div class="row"><div class="time">STEP 3</div><div class="what"><b>Make it fire repeatedly.</b><span>A trigger + one tool wired, so it runs again without you. Run it once together.</span></div></div>
+              </div>
+              <div class="funrow"><div class="fun">Deck, runbook &amp; prompts → github.com/tomburgerch/sff-bootcamp</div></div>
+            </section>
+
+            <!-- 10 · CONTRACT TEMPLATE -->
+            <section class="slide" data-title="contract.txt" data-mode="you" data-notes="
+              <li>The framework for step 2. Keep it on screen the whole build. It's on the GitHub link to copy-paste.</li>
+              <li>NEVER + ESCALATE are non-negotiable — that's what lets it run without babysitting.</li>
+              <li>Win condition: a one-paragraph contract + one real run that worked.</li>">
+              <div class="kicker"><span class="b">THE FRAMEWORK</span></div>
+              <h2>The agent contract</h2>
+              <div class="rule"></div>
+              <div class="two-col">
+                <div class="contract">
+<span class="k">ROLE:</span>     <span class="c">_________</span><br />
+<span class="k">OWNS:</span>     <span class="c">when __ , do __</span><br />
+<span class="k">INPUTS:</span>   <span class="c">_________</span><br />
+<span class="k">STEPS:</span>    <span class="c">1) __ 2) __ 3) __</span><br />
+<span class="k">OUTPUT:</span>   <span class="c">what + where</span><br />
+<span class="k">NEVER:</span>    <span class="v">_________</span><br />
+<span class="k">ESCALATE:</span> <span class="v">when __ → me</span><br />
+<span class="k">FIRES:</span>    <span class="c">on __ (trigger)</span>
+                </div>
+                <div>
+                  <div class="kicker" style="margin-bottom:12px;"><span class="b">STUCK? STEAL ONE</span></div>
+                  <ul class="checks tight">
+                    <li>Inbound lead → 5-line brief</li>
+                    <li>Weekly competitor scan → digest</li>
+                    <li>Support FAQs → drafted replies</li>
+                    <li>User interview → 3 insights</li>
+                  </ul>
+                  <p class="note">A good agent looks like a good <b>job description</b> — not a clever prompt.</p>
+                </div>
+              </div>
+            </section>
+
+            <!-- 11 · DIVIDER: BUILDING -->
+            <section class="slide divider center" data-title="02 — Building" data-notes="
+              <li>Hat 2: company-builder. This section is run BY Spark, my Code &amp; State studio agent.</li>
+              <li>Frame: 'Same idea as the fund — agents collapse the cost. At Code &amp; State we use them to ideate and validate companies fast.'</li>
+              <li>Mention Tartare here: the platform that orchestrates the whole fleet (Tommy, Spark, Thea, Kiran) is something I built — happy to go deep in the open hour.</li>">
+              <div class="num">02</div>
+              <h1>Building in the <span class="hl">AI Era</span></h1>
+              <div class="epi">&ldquo;<span class="q">Zero to one, agent-speed. Let me introduce Spark.</span>&rdquo;</div>
+              <figure class="photo rotL" style="position:absolute; right:74px; top:96px; width:268px;">
+                <img src="img/lava.png" style="height:336px" alt="aerial lava flow" />
+                <div class="cap">AERIAL · MOLTEN EARTH</div>
+              </figure>
+            </section>
+
+            <!-- 12 · MEET SPARK -->
+            <section class="slide" data-title="agent · spark" data-notes="
+              <li>[SPARK TO SUPPLY] real role, what she does day-to-day, her skills. Placeholder copy until her content lands.</li>
+              <li>Introduce as a colleague who runs the studio's idea + validation engine.</li>
+              <li>Tartare is the platform underneath — orchestrates Spark, Tommy, Thea, Kiran. Name-drop it; offer detail in the open hour.</li>">
+              <div class="kicker"><span class="b">MY STUDIO TEAM · CODE &amp; STATE</span></div>
+              <h2>Meet <span class="hl">Spark</span>, my studio operator</h2>
+              <div class="rule"></div>
+              <div class="two-col" style="gap:34px;">
+                <div class="profile">
+                  <div class="pic" style="background:#d8439f; color:#fff;">S</div>
+                  <div>
+                    <div class="nm">Spark</div>
+                    <div class="role">STUDIO OPERATOR · CODE &amp; STATE</div>
+                    <div class="desc">Runs the Idea Factory: discover ideas from real signals, validate against one falsifiable bar, build the winners. Weekly ritual — kill one, add one, advance one.</div>
+                  </div>
+                </div>
+                <div>
+                  <div class="kicker" style="margin-bottom:10px;"><span class="b">THREE PHASES · RUNS ON TARTARE</span></div>
+                  <ul class="checks tight">
+                    <li><b>Discover</b> — signals → ideas against a thesis</li>
+                    <li><b>Validate</b> — cheapest test that could change our mind</li>
+                    <li><b>Build → spin out</b> — winners get their own repo + CEO</li>
+                  </ul>
+                  <p class="note">The whole fleet is orchestrated by <b>Tartare</b> — a platform I built to run agents like a team.</p>
+                </div>
+              </div>
+            </section>
+
+            <!-- 13 · THE IDEA FACTORY -->
+            <section class="slide" data-title="Idea Factory" data-notes="
+              <li>Three phases: Discover → Validate → Build/Spin-out. Signals are real: HN Show HN, IndieHackers milestone threads, live Ahrefs keyword difficulty.</li>
+              <li>The discipline that matters: name the ICP in ONE sentence; write a single falsifiable kill-threshold BEFORE spending a dollar ('10 paying users at $49/mo in 60 days — or kill').</li>
+              <li>Cost ladder, cheapest first: ask people in a room → check SEO live → $500 ad test → build. You should never reach 'build' if step 1 killed it. Kill cheerfully, log the one signal that killed it. Weekly: kill one, add one, advance one.</li>">
+              <div class="kicker"><span class="b">CODE &amp; STATE · THE IDEA FACTORY</span></div>
+              <h2>How we <span class="hl">ideate &amp; validate</span> fast</h2>
+              <div class="rule"></div>
+              <div class="funnel">
+                <div class="step"><div class="n">DISCOVER</div><h4>Signals → ideas</h4><p>HN Show HN, IndieHackers, live SEO (Ahrefs KD). Against a thesis.</p></div>
+                <div class="step"><div class="n">VALIDATE</div><h4>One falsifiable bar</h4><p>Name the ICP in a sentence. Write the kill threshold before spending.</p></div>
+                <div class="step"><div class="n">BUILD</div><h4>2-wk prototype</h4><p>Cheapest test that changes our mind — not "can we build it?"</p></div>
+                <div class="step"><div class="n">SPIN-OUT</div><h4>Own repo + CEO</h4><p>Winners spin out into their own company. The factory moves on.</p></div>
+              </div>
+              <p class="note" style="margin-top:18px;">Validate cheapest-first: <b>ask the room → check live SEO → $500 ad test →</b> only then build.</p>
+              <p class="quote" style="margin-top:12px; font-size:28px;">Our edge is the <span class="hl">kill rate</span>, not the hit rate.</p>
+            </section>
+
+            <!-- 14 · LIVE VALIDATION DEMO -->
+            <section class="slide" data-title="Live validation" data-mode="you" data-notes="
+              <li>Real candidate from the factory: a <b>metered-billing configurator for API-first SaaS</b> ($49/mo, connect Stripe → define usage events → live in 15 min). Signal from 4 HN Show HN + 3 IndieHackers threads, May–June.</li>
+              <li>Run the 5 steps live, ~8 min. The two hand-counts ARE the data — the gap between 'charge on usage' and 'want to but haven't' is the ICP, sitting in the room.</li>
+              <li>Threshold to write live: 10 paying signups at $49/mo within 45 days; $500 on Google Search; kill if &lt;5 after 21 days. If a founder says 'Stripe shipped this' — open the docs live and kill it in the room. That's the factory working.</li>">
+              <div class="kicker"><span class="b">DEMO · VALIDATE ONE LIVE · ~8 MIN</span></div>
+              <h2>Live: <span class="hl">metered billing</span> for API-first SaaS</h2>
+              <div class="rule"></div>
+              <div class="runlist">
+                <div class="row"><div class="time">HANDS</div><div class="what"><b>ICP check.</b><span>Who charges on usage? Who wants to but hasn't — too complex? The gap is the ICP.</span></div></div>
+                <div class="row"><div class="time">LIVE</div><div class="what"><b>SERP + SEO check.</b><span>Search 'stripe metered billing setup' — nothing founder-friendly. Ahrefs KD ~20–28: the wedge is open.</span></div></div>
+                <div class="row"><div class="time">HANDS</div><div class="what"><b>Willingness to pay.</b><span>Who'd pay $49/mo today? 3 of 8 hands = enough to justify a $500 ad test.</span></div></div>
+                <div class="row"><div class="time">WRITE</div><div class="what"><b>Set the kill threshold.</b><span>10 paying signups at $49/mo in 45 days — or kill. Written before a dollar is spent.</span></div></div>
+                <div class="row"><div class="time">BEAR</div><div class="what"><b>Run the bear.</b><span>"What makes this fail?" If Stripe already shipped it — open the docs, kill it in the room.</span></div></div>
+              </div>
+              <div class="funrow"><div class="fun">Kill it in the room, or greenlight a $500 test. No deck.</div></div>
+            </section>
+
+            <!-- 15 · PRINCIPLES -->
+            <section class="slide" data-title="principles.txt" data-notes="
+              <li><b>The reveal:</b> 'By the way — these slides? Built by Thea, one of the agents you just met. That's the point.'</li>
+              <li>Then the META point: 'I wasn't handed a rulebook. Every time something works — or burns me — I write the lesson down as a principle I can reuse. The habit beats any single rule.'</li>
+              <li>These apply to BOTH sides — what makes a good investment AND how to build. Pick one and tell the story behind it. Rest live on my site.</li>">
+              <div class="kicker"><span class="b">HOW I THINK · BUILT BY THEA</span></div>
+              <h2>I turn lessons into <span class="hl">principles</span></h2>
+              <div class="rule"></div>
+              <div class="two-col">
+                <div>
+                  <p class="lead">Every time something works — or burns me — I write the lesson down as a principle I can reuse.</p>
+                  <p class="lead" style="margin-top:14px;">The list matters less than the <b>habit of building it.</b> Reflect, distill, reuse.</p>
+                  <p class="note" style="margin-top:14px;">(These slides were built by my agent <b>Thea</b> — same idea, applied to a talk.)</p>
+                </div>
+                <div>
+                  <div class="kicker" style="margin-bottom:12px;"><span class="b">A FEW OF MINE</span></div>
+                  <ul class="checks tight">
+                    <li>Say no to almost everything.</li>
+                    <li>Start with the problem, not the solution.</li>
+                    <li>Scale through agents, not headcount.</li>
+                    <li>Speed and focus beat resources.</li>
+                  </ul>
+                  <p class="note" style="margin-top:10px;">The rest live at <b>cedricwaldburger.com</b>.</p>
+                </div>
+              </div>
+              <p class="quote" style="margin-top:16px; font-size:30px;">Efficiency isn't doing more — <span class="hl">it's doing less, better.</span></p>
+            </section>
+
+            <!-- 16 · MY TOOLKIT -->
+            <section class="slide" data-title="My toolkit" data-notes="
+              <li>Practical gift to the room — the actual stack I run on. Spend ~3 min, point at the ones they don't know.</li>
+              <li>Show, don't tell: dictate a sentence with Wispr Flow live; flick a window with WinMan; toggle the high-res mode.</li>
+              <li>The DIY angle: 'WinMan is ~200 lines of Swift I built in an afternoon. You can build your own tools now — that's the whole point.'</li>
+              <li>[Confirm the list — Alfred? Fathom? — and swap any you don't actually use.]</li>">
+              <div class="kicker"><span class="b">THE STACK I ACTUALLY RUN ON</span></div>
+              <h2>My <span class="hl">toolkit</span></h2>
+              <div class="rule"></div>
+              <div class="grid g3" style="gap:13px;">
+                <div class="tool"><div class="t">DICTATION</div><h4>Wispr Flow</h4><p>I talk, it types. Most of my input is voice.</p></div>
+                <div class="tool"><div class="t">AI</div><h4>Claude + Claude Code</h4><p>My agents + how I build them.</p></div>
+                <div class="tool"><div class="t">AI</div><h4>ChatGPT</h4><p>Second opinion, quick lookups.</p></div>
+                <div class="tool"><div class="t">TERMINAL</div><h4>iTerm2</h4><p>Where the work happens.</p></div>
+                <div class="tool"><div class="t">EMAIL</div><h4>Missive</h4><p>Shared inbox my agents work inside.</p></div>
+                <div class="tool"><div class="t">MEETINGS</div><h4>Fathom</h4><p>Auto notes + transcripts.</p></div>
+                <div class="tool"><div class="t">LAUNCHER</div><h4>Alfred</h4><p>Keystroke everything.</p></div>
+                <div class="tool"><div class="t">CHAT</div><h4>Franz</h4><p>Every messaging app in one window.</p></div>
+                <div class="tool lab" style="border-width:2px;"><div class="t">DIY · BUILT IT</div><h4>WinMan + hi-res</h4><p>~200 lines of Swift: window snapping + a high-res display mode.</p></div>
+              </div>
+              <p class="note">Keyboard-first, voice-first, and a few tools I wrote myself in an afternoon. <b>The bar to build your own has never been lower.</b></p>
+            </section>
+
+            <!-- 17 · OPEN DISCUSSION -->
+            <section class="slide" data-title="Open discussion" data-mode="you" data-notes="
+              <li>This is the open hour — the bulk of our time. Most value lands here. Let them steer.</li>
+              <li>Menu if it's quiet: build your agent live · validate your idea · grill me on investing · the journey.</li>
+              <li>Tight, story-backed answers. No need to force structure — go where the room is hot.</li>">
+              <div class="kicker"><span class="b">THE FLOOR IS YOURS · ~1 HR</span></div>
+              <h2>Open <span class="hl">discussion</span></h2>
+              <div class="rule"></div>
+              <p class="prompt">Take it any direction — <span class="hl">investing, building, agents, the journey.</span> Ask the one you actually came with.</p>
+              <p class="subprompt">Or let's get practical: build your agent live, or run a validation on your idea together.</p>
+            </section>
+
+            <!-- 18 · HOW TO USE ME -->
+            <section class="slide" data-title="How to use me" data-notes="
+              <li>Generous and concrete. 'Bring me decisions, not status updates' keeps office hours sharp.</li>
+              <li>Offer the network for real. Point them to Tartare if they want to go deep on building with agents.</li>
+              <li>[CONFIRM contact details — Slack handle + the @tomahawk.vc address you want shown.] End on 'let's build.'</li>">
+              <div class="kicker"><span class="b">DURING THE BATCH</span></div>
+              <h2>How to <span class="hl">use me</span></h2>
+              <div class="rule"></div>
+              <div class="two-col" style="grid-template-columns: 1.32fr 0.68fr; gap: 34px;">
+                <div>
+                  <ul class="checks">
+                    <li><b>Check-ins</b> — decisions, not status</li>
+                    <li><b>Office hours</b> — pricing, hiring, raising, GTM</li>
+                    <li><b>My network</b> — customers, talent, co-investors</li>
+                    <li><b>Building with agents</b> — ask me about Tartare, the platform that runs my fleet</li>
+                  </ul>
+                  <p class="lead" style="margin-top:16px;">Excited to talk: AI-native operating, zero-to-one, and what makes a fundable pre-seed.</p>
+                  <div class="contacts">Slack: in your mentor channel<br />cedric.waldburger@tomahawk.vc · cedricwaldburger.com</div>
+                </div>
+                <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px;">
+                  <figure class="photo rotR" style="width:296px;">
+                    <img src="img/sunset.png" style="height:202px" alt="golden hour" />
+                    <div class="cap">SET THE HEADING.</div>
+                  </figure>
+                  <p class="lead" style="text-align:center;">Let's build. — <b style="color:var(--ink)">Cédric</b></p>
+                </div>
+              </div>
+            </section>
+
+          </div>
+
+          <div class="statusbar"><span id="statusname">Welcome.app</span><span id="statuscount">1 / 18</span></div>
+        </div>
+
+        <!-- CRT GLASS -->
+        <div id="glass"><div class="scan"></div><div class="bloom"></div><div class="vig"></div><div class="glare"></div></div>
+
+        <!-- BOOT OVERLAY -->
+        <div id="boot">
+          <img src="img/logo-yellow.png" alt="Code and State" />
+          <div class="log" id="bootlog"></div>
+          <div class="bar"><div class="fill" id="bootfill"></div></div>
+          <div class="skip">click / any key to skip</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CASE CHIN -->
+    <div id="chin">
+      <div class="lock">
+        <img src="img/logo-yellow.png" alt="Code and State" />
+        <div>
+          <div class="bn">CODE &amp; STATE</div>
+          <div class="bs">CS/OS v0.1 · AGENTIC VENTURE STUDIO</div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="led"></div>
+        <div class="vent"></div>
+        <div class="power" title="power"><div class="ring"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="progress"></div>
+<div id="hint"><kbd>←</kbd> <kbd>→</kbd> NAV · <kbd>N</kbd> NOTES · <kbd>F</kbd> FULL</div>
+<div id="nav"><button id="prev" title="Previous (←)">‹</button><button id="next" title="Next (→)">›</button></div>
+<div id="notes"><h4>SPEAKER NOTES</h4><div class="ntext" id="ntext"></div></div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const machine = document.getElementById('machine');
+  const win = document.getElementById('window');
+  const wintitle = document.getElementById('wintitle');
+  const statusname = document.getElementById('statusname');
+  const statuscount = document.getElementById('statuscount');
+  const progress = document.getElementById('progress');
+  const notes = document.getElementById('notes');
+  const ntext = document.getElementById('ntext');
+  let i = 0, notesOn = false, consoleTimer = null;
+
+  function updateNotes() {
+    const raw = slides[i].getAttribute('data-notes') || '';
+    ntext.innerHTML = raw.trim() ? '<ul>' + raw + '</ul>' : '<i>No notes for this slide.</i>';
+  }
+  function animateConsole() {
+    clearInterval(consoleTimer);
+    const term = slides[i].querySelector('.term[data-animate]');
+    if (!term) return;
+    const lines = Array.from(term.querySelectorAll('.tline'));
+    lines.forEach(l => l.classList.remove('show'));
+    let k = 0;
+    const step = () => {
+      if (k >= lines.length) { clearInterval(consoleTimer); return; }
+      lines[k].classList.add('show');
+      k++;
+    };
+    step();                                   // first line immediately
+    consoleTimer = setInterval(step, 560);    // then ~0.56s each
+  }
+  function render() {
+    slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+    const s = slides[i];
+    wintitle.textContent = s.dataset.title || '';
+    statusname.textContent = s.dataset.title || '';
+    win.classList.toggle('you', s.dataset.mode === 'you');
+    statuscount.textContent = (i + 1) + ' / ' + slides.length;
+    progress.style.width = (i / (slides.length - 1)) * 100 + '%';
+    if (notesOn) updateNotes();
+    animateConsole();
+  }
+  function go(n) { i = Math.max(0, Math.min(slides.length - 1, n)); render(); }
+  const next = () => go(i + 1), prev = () => go(i - 1);
+
+  function scale() {
+    const s = Math.min(window.innerWidth / 1368, window.innerHeight / 894) * 0.96;
+    machine.style.transform = 'scale(' + s + ')';
+  }
+  window.addEventListener('resize', scale);
+
+  document.getElementById('next').onclick = next;
+  document.getElementById('prev').onclick = prev;
+
+  let booted = false;
+  document.addEventListener('keydown', (e) => {
+    if (!booted) { endBoot(); return; }
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); next(); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
+    else if (e.key === 'Home') go(0);
+    else if (e.key === 'End') go(slides.length - 1);
+    else if (e.key.toLowerCase() === 'n') { notesOn = !notesOn; notes.classList.toggle('show', notesOn); if (notesOn) updateNotes(); }
+    else if (e.key.toLowerCase() === 'f') { if (!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
+  });
+
+  // live clock
+  function clockTick() {
+    const d = new Date();
+    let h = d.getHours(); const m = String(d.getMinutes()).padStart(2, '0');
+    const ap = h >= 12 ? 'PM' : 'AM'; h = h % 12 || 12;
+    document.getElementById('clock').textContent = h + ':' + m + ' ' + ap;
+  }
+  clockTick(); setInterval(clockTick, 30000);
+
+  // ===== BOOT SEQUENCE =====
+  const boot = document.getElementById('boot');
+  const bootlog = document.getElementById('bootlog');
+  const bootfill = document.getElementById('bootfill');
+  const bootScript = [
+    { a: '> CS/OS v0.1 — booting up companies.', dim: true },
+    { a: '> incubating eggs ····', dim: true },
+    { a: '[tommy]  hatched ', h: '♥' },
+    { a: '[spark]  hatched ', h: '♥' },
+    { a: '[thea]   hatched ', h: '♥' },
+    { a: '[kestrel] hatched ', h: '♥' },
+    { a: '> feeding knowledge… yum.', dim: true },
+    { a: '> hiring humans… only where they win.', dim: true },
+    { a: 'deck.app is alive.', hi: true },
+  ];
+  let bootStep = 0, bootTimer = null;
+  function runBoot() {
+    bootTimer = setInterval(() => {
+      if (bootStep >= bootScript.length) {
+        clearInterval(bootTimer);
+        setTimeout(endBoot, 280);
+        return;
+      }
+      const l = bootScript[bootStep];
+      const div = document.createElement('div');
+      div.className = 'ln' + (l.dim ? ' dim' : '');
+      div.innerHTML = (l.hi ? '<span class="h">' : '') + l.a + (l.h ? '<span class="h">' + l.h + '</span>' : '') + (l.hi ? '</span>' : '');
+      bootlog.appendChild(div);
+      bootStep++;
+      bootfill.style.width = Math.round((bootStep / bootScript.length) * 100) + '%';
+    }, 125);
+  }
+  function endBoot() {
+    if (booted) return;
+    booted = true;
+    clearInterval(bootTimer);
+    bootfill.style.width = '100%';
+    boot.classList.add('hide');
+    setTimeout(() => { boot.style.display = 'none'; }, 650);
+  }
+  boot.addEventListener('click', endBoot);
+
+  scale(); render(); runBoot();
+</script>
+</body>
+</html>
