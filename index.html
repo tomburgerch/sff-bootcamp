@@ -213,7 +213,11 @@
   .contacts { display: inline-block; margin-top: 18px; font-family: var(--sys); font-size: 12px; color: var(--ink); background: var(--yellow); border: 2px solid var(--ink); box-shadow: 3px 3px 0 rgba(0,0,0,0.85); padding: 8px 12px; line-height: 1.9; }
 
   /* tools grid */
-  .tool { background: var(--paper); border: 2px solid var(--ink); box-shadow: 4px 4px 0 rgba(0,0,0,0.85); padding: 12px 14px; }
+  .tool { background: var(--paper); border: 2px solid var(--ink); box-shadow: 4px 4px 0 rgba(0,0,0,0.85); padding: 12px 14px;
+    display: flex; gap: 12px; align-items: flex-start; }
+  .tool .ico { width: 40px; height: 40px; flex: none; border: 2px solid var(--ink); box-shadow: 2px 2px 0 rgba(0,0,0,0.85);
+    object-fit: contain; background: #fff; image-rendering: auto; }
+  .tool .tx { min-width: 0; }
   .tool .t { font-family: var(--sys); font-size: 8.5px; color: var(--dim); }
   .tool h4 { font-family: var(--pixel); font-weight: 700; font-size: 17px; margin-top: 2px; }
   .tool p { font-family: var(--pixel); font-size: 12.5px; color: var(--muted); line-height: 1.38; margin-top: 3px; }
@@ -226,6 +230,41 @@
   .rotL { transform: rotate(-2.5deg); } .rotR { transform: rotate(2.5deg); }
   .strip { display: flex; gap: 10px; }
   .strip .photo { box-shadow: 5px 5px 0 rgba(0,0,0,0.85); border-width: 2px; }
+
+  /* slide-2 photo wall — larger + tumble-in reveal each time the slide opens */
+  .pwall { display: flex; flex-direction: column; gap: 18px; align-items: center; }
+  .pwall .strip { gap: 18px; }
+  .about-photo { opacity: 0; transform: translateY(34px) rotate(var(--r,0deg)) scale(0.88);
+    transition: opacity .5s ease, transform .6s cubic-bezier(.2,.85,.25,1); }
+  .slide.active .about-photo { opacity: 1; transform: translateY(0) rotate(var(--r,0deg)) scale(1); }
+  .slide.active .about-photo.d1 { transition-delay: .06s; }
+  .slide.active .about-photo.d2 { transition-delay: .16s; }
+  .slide.active .about-photo.d3 { transition-delay: .26s; }
+  .slide.active .about-photo.d4 { transition-delay: .36s; }
+
+  /* ===== SCORING RUBRIC (40/30/30) ===== */
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .pillar { border: 2px solid var(--ink); box-shadow: 4px 4px 0 rgba(0,0,0,0.85); background: var(--paper); padding: 13px 15px 14px; }
+  .pillar .ph { display: flex; align-items: baseline; justify-content: space-between; border-bottom: 2px solid var(--ink); padding-bottom: 8px; margin-bottom: 4px; }
+  .pillar .ph .nm { font-family: var(--pixel); font-weight: 700; font-size: 18px; }
+  .pillar .ph .wt { font-family: var(--sys); font-size: 11px; background: var(--yellow); border: 2px solid var(--ink); padding: 1px 5px; }
+  .pillar .dim { font-family: var(--sys); font-size: 8.5px; color: var(--dim); letter-spacing: .5px; margin: 10px 0 6px; }
+  .pillar .gw { font-family: var(--pixel); font-size: 12.5px; line-height: 1.34; color: var(--muted); padding-left: 17px; position: relative; margin-bottom: 6px; }
+  .pillar .gw.g::before { content: "✓"; position: absolute; left: 0; color: #3f8f33; font-weight: 700; }
+  .pillar .gw.w::before { content: "✕"; position: absolute; left: 1px; top: 1px; color: #c23b3b; font-family: var(--sys); font-size: 9px; }
+  .cutoffs { font-family: var(--sys); font-size: 11px; color: var(--ink); margin-top: 14px; letter-spacing: .5px; }
+  .cutoffs b { background: var(--yellow); border: 2px solid var(--ink); padding: 2px 6px; box-shadow: 2px 2px 0 rgba(0,0,0,0.85); }
+
+  /* ===== GREEN vs RED SIGNALS ===== */
+  .gr { display: grid; grid-template-columns: 150px 1fr 1fr; border: 2px solid var(--ink); box-shadow: 5px 5px 0 rgba(0,0,0,0.85); }
+  .gr > div { border-right: 2px solid var(--ink); border-bottom: 2px solid var(--ink); padding: 12px 15px; font-family: var(--pixel); font-size: 14.5px; line-height: 1.38; }
+  .gr > div:nth-child(3n) { border-right: none; }
+  .gr > div:nth-last-child(-n+3) { border-bottom: none; }
+  .gr .hdr { font-family: var(--sys); font-size: 11px; letter-spacing: .5px; color: var(--paper); }
+  .gr .hdr.k { background: var(--ink); } .gr .hdr.green { background: #2f7a28; } .gr .hdr.red { background: #a83232; }
+  .gr .cat { font-family: var(--pixel); font-weight: 700; font-size: 16px; display: flex; flex-direction: column; justify-content: center; }
+  .gr .cat span { font-family: var(--sys); font-size: 8.5px; color: var(--dim); margin-top: 4px; letter-spacing: .5px; }
+  .gr .gc { background: #f3f8f1; } .gr .rc { background: #faf2f2; }
 
   /* ===== BOOT OVERLAY ===== */
   #boot { position: absolute; inset: 0; z-index: 70; background: #000; display: flex; flex-direction: column;
@@ -303,11 +342,12 @@
               <li><b>The format (agreed with SFF):</b> '~45 min from me, then the rest is yours — questions, building, any direction you want.'</li>
               <li><b>House rules — say them, don't slide them:</b> interrupt me, steal the mic, derail the plan. My belief: 90% of blockers are bullshit; most process exists to make slow people feel busy. You'll leave with a working agent and a sharper sense of what I look for.</li>
               <li><b>The hook — the tagline:</b> 'My goal is 100 companies with 3 people.' AI collapsed the cost of starting and running a company, so a tiny team can take a hundred shots. Today is about how — building AND investing.</li>
-              <li>Don't reveal it yet, but: these slides were built by my agent Thea. (Save it for the principles slide.)</li>">
+              <li><b>The meta-point — built by an agent (don't reveal yet):</b> this whole deck — layout, copy, and code — was built by Thea, my personal agent. I gave her the brief and argued about wording; she did the rest. The talk about building with agents was built by one. Save the reveal for the 'Made by Thea' slide near the end.</li>
+              <li><b>Why it looks like this:</b> the retro-Mac frame is deliberate — a computer you boot up <i>is</i> a company now. System-6 black-and-white keeps it calm; the yellow marks only the one thing that matters on each slide. Less chrome, more signal — the same taste I want in the products I back.</li>">
               <div class="title-wrap">
                 <div class="kicker"><span class="b">CODE &amp; STATE × TOMAHAWK.VC</span></div>
                 <h1>Building &amp; Investing<br />in the <span class="hl">AI Era</span></h1>
-                <div class="tagline">My goal: <span class="hl">100 companies with 3 people.</span></div>
+                <div class="tagline">My goal: 100 companies with 3 people.</div>
                 <div class="title-meta">
                   <div><b>Cédric Waldburger</b></div>
                   <div>SFF Studio Mentor Bootcamp</div>
@@ -344,14 +384,14 @@
                     <li><b>Studio</b> — Code &amp; State</li>
                   </ul>
                 </div>
-                <div style="display:flex; flex-direction:column; align-items:center; gap:14px;">
-                  <div class="strip" style="gap:14px;">
-                    <figure class="photo rotL"><img src="img/heli.png" style="height:152px;width:124px" alt="adventure pilot" /><div class="cap">ADVENTURE PILOT</div></figure>
-                    <figure class="photo rotR"><img src="img/hornbill.png" style="height:152px;width:124px" alt="photography" /><div class="cap">PHOTOGRAPHY</div></figure>
+                <div class="pwall">
+                  <div class="strip">
+                    <figure class="photo about-photo d1" style="--r:-2.5deg"><img src="img/heli.png" style="height:188px;width:152px" alt="adventure pilot" /><div class="cap">ADVENTURE PILOT</div></figure>
+                    <figure class="photo about-photo d2" style="--r:2.5deg"><img src="img/hornbill.png" style="height:188px;width:152px" alt="photography" /><div class="cap">PHOTOGRAPHY</div></figure>
                   </div>
-                  <div class="strip" style="gap:14px;">
-                    <figure class="photo rotR"><img src="img/aircraft.png" style="height:152px;width:124px" alt="flying" /><div class="cap">ZU-WBG</div></figure>
-                    <figure class="photo rotL"><img src="img/diving.png" style="height:152px;width:124px" alt="diving" /><div class="cap">UNDERWATER</div></figure>
+                  <div class="strip">
+                    <figure class="photo about-photo d3" style="--r:2.5deg"><img src="img/aircraft.png" style="height:188px;width:152px" alt="flying" /><div class="cap">ZU-WBG</div></figure>
+                    <figure class="photo about-photo d4" style="--r:-2.5deg"><img src="img/diving.png" style="height:188px;width:152px" alt="diving" /><div class="cap">UNDERWATER</div></figure>
                   </div>
                 </div>
               </div>
@@ -365,8 +405,8 @@
               <div class="kicker"><span class="b">QUICK ROUND · ~5 MIN</span></div>
               <h2>One thing you've <span class="hl">recently automated</span></h2>
               <div class="rule"></div>
-              <p class="prompt">Name · what you're building · <span class="hl">one thing you automated in your business lately.</span></p>
-              <p class="subprompt">Even a small one. I want to see how far each of you already runs on AI — it tells me where to take the next two hours.</p>
+              <p class="prompt">Name · what you're building · one thing you automated in your business lately.</p>
+              <p class="subprompt">Even a small one. I want to see how far each of you already runs on AI — that tells me where to take the rest of our time.</p>
             </section>
 
             <!-- 4 · DIVIDER: INVESTING -->
@@ -430,6 +470,46 @@
               </div>
             </section>
 
+            <!-- 6b · HOW WE SCORE (rubric) -->
+            <section class="slide" data-title="How we score" data-notes="
+              <li>This is the rubric behind every number in the console. 40/30/30 — Founder weighted highest because at pre-seed the founder basically IS the company.</li>
+              <li>Walk one column. The point isn't the math — it's that 'strong' and 'weak' are concrete, observable things, not vibes. A weak execution score means: same deck, same slides, two weeks apart.</li>
+              <li>Moat is the one founders underrate: one why-now, one miracle, 10x on a single axis. Two miracles and the probability collapses.</li>">
+              <div class="kicker"><span class="b">THE RUBRIC BEHIND EVERY SCORE</span></div>
+              <h2>How we score a company</h2>
+              <div class="rule"></div>
+              <div class="pillars">
+                <div class="pillar">
+                  <div class="ph"><span class="nm">Founder</span><span class="wt">40</span></div>
+                  <div class="dim">EXECUTION — what shipped between two calls?</div>
+                  <div class="gw g">Showed up to call 2 with two design partners signed and a working integration.</div>
+                  <div class="gw w">Same deck, same slides — "still thinking about the roadmap."</div>
+                  <div class="dim">EMPATHY — do they speak the customer's words?</div>
+                  <div class="gw g">Quotes three customers verbatim — the exact phrase for the pain.</div>
+                  <div class="gw w">"We serve SMEs." Can't name one, let alone a person.</div>
+                </div>
+                <div class="pillar">
+                  <div class="ph"><span class="nm">Market</span><span class="wt">30</span></div>
+                  <div class="dim">EVIDENCE — shipped, not slideware</div>
+                  <div class="gw g">10 named customers, 3 paying; can replay the call that closed each.</div>
+                  <div class="gw w">"$50B TAM" — and can't name a single customer.</div>
+                  <div class="dim">DISTRIBUTION — a repeatable wedge</div>
+                  <div class="gw g">First 12 came through one channel they can describe and scale.</div>
+                  <div class="gw w">"Content + paid + Product Hunt." That's a prayer, not a plan.</div>
+                </div>
+                <div class="pillar">
+                  <div class="ph"><span class="nm">Moat</span><span class="wt">30</span></div>
+                  <div class="dim">WHY NOW — what just changed?</div>
+                  <div class="gw g">Inference cost fell 100x in 18 months — couldn't have existed before.</div>
+                  <div class="gw w">"It's always been a problem." Then why hasn't it been solved?</div>
+                  <div class="dim">10x ON ONE AXIS — not 3x on five</div>
+                  <div class="gw g">Audits 10,000 documents overnight vs a 20-person team.</div>
+                  <div class="gw w">"Better UX, a little faster." That's 1.5x — we can't back 1.5x.</div>
+                </div>
+              </div>
+              <div class="cutoffs">PURSUE &nbsp;&ge;&nbsp;4.0 &nbsp;·&nbsp; DISCUSS &nbsp;3.0&ndash;3.9 &nbsp;·&nbsp; PASS &nbsp;&lt;&nbsp;3.0 &nbsp;&nbsp;—&nbsp; weighted across all three.</div>
+            </section>
+
             <!-- 7 · CONSOLE DEMO (investing workflow) -->
             <section class="slide" data-title="Console · investment case" data-notes="
               <li>This is a faithful replay of a REAL case Tommy ran today (task 14m32s). Let the lines animate, narrate each. (Company anonymized on the slide — open the live Missive thread to show the real one.)</li>
@@ -452,20 +532,58 @@
               <p class="note"><b>14 minutes of Tommy's time. 90 seconds of mine</b> — I read the conclusion, agree with the PASS, hit send.</p>
             </section>
 
-            <!-- 8 · WHAT I LOOK FOR -->
-            <section class="slide" data-title="What I look for" data-notes="
-              <li>This is the takeaway of the investing section — say it slowly, it's what they came for.</li>
-              <li>Velocity is my single best predictor: your progress between two conversations two weeks apart.</li>
-              <li>Tie back: 'I can run a fund with three people because of automation + leverage. I back founders who do the same.'</li>">
-              <div class="kicker"><span class="b">WHAT I BACK IN THE AI ERA</span></div>
+            <!-- 8 · GREEN vs RED SIGNALS -->
+            <section class="slide" data-title="Green / red flags" data-notes="
+              <li>This is what 'high automation / speed / leverage' actually looks like in a meeting — concrete, not a vibe. Read one row across.</li>
+              <li>The green column is a 3-person team out-shipping a 15-person one. The red column is someone using AI as a slide while running ops on Gmail and spreadsheets.</li>
+              <li>End on the tell: 'what did you personally ship in the last 30 days, with how many people?' — the answer is instant, or it doesn't exist.</li>">
+              <div class="kicker"><span class="b">GREEN FLAGS · RED FLAGS</span></div>
               <h2>What I look for in <span class="hl">AI-era companies</span></h2>
               <div class="rule"></div>
-              <ul class="checks">
-                <li><b>A high degree of automation</b> <span>— the team stays tiny because agents do the work.</span></li>
-                <li><b>Extreme speed</b> <span>— velocity between two conversations is my single best signal.</span></li>
-                <li><b>Real leverage</b> <span>— they use AI to do far more than a team their size used to.</span></li>
-              </ul>
-              <p class="quote">At pre-seed, <span class="hl">you are the data.</span> Show me you move faster than everyone else.</p>
+              <div class="gr">
+                <div class="hdr k"></div>
+                <div class="hdr green">GREEN FLAG</div>
+                <div class="hdr red">RED FLAG</div>
+
+                <div class="cat">Automation<span>LEAN BY DEFAULT</span></div>
+                <div class="gc">A team of 3 handles 200 inbound leads a week with agents — zero SDR hires.</div>
+                <div class="rc">Hired 4 salespeople in month 2 because "enterprise needs a human touch."</div>
+
+                <div class="cat">Velocity<span>SHIPS BETWEEN CALLS</span></div>
+                <div class="gc">8 days between our calls → shipped the integration three customers asked for.</div>
+                <div class="rc">An 18-month roadmap with phases and gates. No customer has touched it.</div>
+
+                <div class="cat">Leverage<span>DOGFOODS ITS AI</span></div>
+                <div class="gc">3 people doing the output of 15 — commits, support volume, customers all confirm it.</div>
+                <div class="rc">AI lives in the deck; pricing, support and onboarding are all manual.</div>
+              </div>
+              <p class="note" style="margin-top:16px;">The tell — <b>&ldquo;what did you personally ship in the last 30 days, with how many people?&rdquo;</b> The answer takes 30 seconds, or it doesn't exist.</p>
+            </section>
+
+            <!-- 8b · WHY WE PASS -->
+            <section class="slide" data-title="Why we pass" data-notes="
+              <li>The honest half of the job: most deals are a no, and saying no well is the skill. Lead with the velocity line — it's the single most predictive thing I know.</li>
+              <li>Kestrel scores blind — never sees Tommy's number until after. Converge → strong signal; diverge → that gap IS the IC conversation. You can't nod along to an answer you haven't seen.</li>
+              <li>The four PASS patterns are anonymized but real and recurring — the capital-efficiency one is the music-licensing case from the demo.</li>">
+              <div class="kicker"><span class="b">THE OTHER HALF OF THE JOB</span></div>
+              <h2>The one signal — and why we pass</h2>
+              <div class="rule"></div>
+              <div class="two-col" style="grid-template-columns: 1fr 1fr; gap: 38px;">
+                <div>
+                  <p class="quote" style="margin-top:0;">My single best predictor: what did they <span class="hl">ship, close, or learn</span> between two conversations?</p>
+                  <p class="note" style="margin-top:16px;">More predictive than the deck. More than the metrics. A founder who shows up to call 2 with two new customers beats one who polished the slides.</p>
+                  <p class="note" style="margin-top:12px;"><b>Kestrel scores blind</b> — never sees Tommy's number first. Converge, and it's a strong yes; diverge, and that gap is the whole conversation.</p>
+                </div>
+                <div>
+                  <div class="kicker" style="margin-bottom:12px;"><span class="b">PASS PATTERNS I SEE EVERY WEEK</span></div>
+                  <ul class="checks no tight">
+                    <li><b>Capital-efficiency catastrophe</b> <span>— raised $12M+, ~$1M ARR. Exit math never closes.</span></li>
+                    <li><b>The multi-miracle deck</b> <span>— needs four things to all go right. P(all four) ≈ 0.</span></li>
+                    <li><b>Distribution gap</b> <span>— great product, no credible way to reach a customer.</span></li>
+                    <li><b>Valuation before evidence</b> <span>— $20M+ pre, zero customers, nothing shipped.</span></li>
+                  </ul>
+                </div>
+              </div>
             </section>
 
             <!-- 9 · WORKSHOP: BUILD AN AGENT -->
@@ -566,7 +684,7 @@
               <li>The discipline that matters: name the ICP in ONE sentence; write a single falsifiable kill-threshold BEFORE spending a dollar ('10 paying users at $49/mo in 60 days — or kill').</li>
               <li>Cost ladder, cheapest first: ask people in a room → check SEO live → $500 ad test → build. You should never reach 'build' if step 1 killed it. Kill cheerfully, log the one signal that killed it. Weekly: kill one, add one, advance one.</li>">
               <div class="kicker"><span class="b">CODE &amp; STATE · THE IDEA FACTORY</span></div>
-              <h2>How we <span class="hl">ideate &amp; validate</span> fast</h2>
+              <h2>How we ideate &amp; validate fast</h2>
               <div class="rule"></div>
               <div class="funnel">
                 <div class="step"><div class="n">DISCOVER</div><h4>Signals → ideas</h4><p>HN Show HN, IndieHackers, live SEO (Ahrefs KD). Against a thesis.</p></div>
@@ -598,17 +716,17 @@
 
             <!-- 15 · PRINCIPLES -->
             <section class="slide" data-title="principles.txt" data-notes="
-              <li><b>The reveal:</b> 'By the way — these slides? Built by Thea, one of the agents you just met. That's the point.'</li>
-              <li>Then the META point: 'I wasn't handed a rulebook. Every time something works — or burns me — I write the lesson down as a principle I can reuse. The habit beats any single rule.'</li>
-              <li>These apply to BOTH sides — what makes a good investment AND how to build. Pick one and tell the story behind it. Rest live on my site.</li>">
-              <div class="kicker"><span class="b">HOW I THINK · BUILT BY THEA</span></div>
-              <h2>I turn lessons into <span class="hl">principles</span></h2>
+              <li>The META point: 'I wasn't handed a rulebook. Every time something works — or burns me — I write the lesson down as a principle I can reuse. The habit beats any single rule.'</li>
+              <li>These apply to BOTH sides — what makes a good investment AND how to build. Pick one and tell the story behind it; the rest live on my site.</li>
+              <li>Set up the reveal but DON'T spoil it — the next slide lands it. End on the cliffhanger: 'and there's one more example of this habit, sitting right in front of you…'</li>">
+              <div class="kicker"><span class="b">HOW I THINK</span></div>
+              <h2>I turn lessons into principles</h2>
               <div class="rule"></div>
               <div class="two-col">
                 <div>
                   <p class="lead">Every time something works — or burns me — I write the lesson down as a principle I can reuse.</p>
                   <p class="lead" style="margin-top:14px;">The list matters less than the <b>habit of building it.</b> Reflect, distill, reuse.</p>
-                  <p class="note" style="margin-top:14px;">(These slides were built by my agent <b>Thea</b> — same idea, applied to a talk.)</p>
+                  <p class="note" style="margin-top:14px;">…and there's one more example of this habit sitting right in front of you. <b>Next slide.</b></p>
                 </div>
                 <div>
                   <div class="kicker" style="margin-bottom:12px;"><span class="b">A FEW OF MINE</span></div>
@@ -624,6 +742,32 @@
               <p class="quote" style="margin-top:16px; font-size:30px;">Efficiency isn't doing more — <span class="hl">it's doing less, better.</span></p>
             </section>
 
+            <!-- 15b · MADE BY THEA (the reveal) -->
+            <section class="slide" data-title="Made by Thea" data-notes="
+              <li>THE reveal — let it land, then pause. 'Every slide you've looked at, every line of copy, the layout, the code — built by Thea, my personal agent. I briefed her and we argued about wording. I never opened a design tool.'</li>
+              <li>WHY it looks the way it does, in my words: the retro-Mac frame because a computer you boot up is a company now; black-and-white so the one yellow thing per slide is the point; demo-first because showing beats telling.</li>
+              <li>The meta-point closes the loop: the talk about building with agents was itself built by one. That's the whole thesis in a single move. Then → toolkit / open hour.</li>">
+              <div class="kicker"><span class="b">P.S. — THE REVEAL</span></div>
+              <h2>This deck was built <span class="hl">by Thea</span></h2>
+              <div class="rule"></div>
+              <div class="two-col" style="grid-template-columns: 0.92fr 1.08fr; gap: 36px;">
+                <div>
+                  <p class="lead">Every slide, every line of copy, the layout, the code — built by <b>Thea</b>, my personal agent. I gave her the brief and we argued about wording. I never opened a design tool.</p>
+                  <p class="note" style="margin-top:16px;"><b>Why it looks like this:</b> the retro-Mac frame, because a computer you boot up <i>is</i> a company now · black-and-white, so the one yellow thing per slide is the point · demo-first, because showing beats telling.</p>
+                  <p class="note" style="margin-top:12px;">The talk about building with agents was built by one. <b>That's the whole point.</b></p>
+                </div>
+                <div class="term big" data-animate style="align-self:start;">
+                  <div class="tline"><span class="c">// thea ▸ build deck.app for SFF Studio</span></div>
+                  <div class="tline"><span class="p">brief ▸</span> "make it fun · demo-heavy · less is more"</div>
+                  <div class="tline"><span class="p">design ▸</span> System-6 frame · one yellow / slide</div>
+                  <div class="tline"><span class="p">write ▸</span> one self-contained HTML file · 21 slides</div>
+                  <div class="tline">&nbsp;&nbsp;<span class="b2">cédric ▸</span> argued about wording (won ~half)</div>
+                  <div class="tline"><span class="p">ship ▸</span> <span class="ok">deployed → sff-bootcamp.vercel.app</span></div>
+                  <div class="tline warn">&nbsp;&nbsp;the talk about agents… built by one. <span class="blink"></span></div>
+                </div>
+              </div>
+            </section>
+
             <!-- 16 · MY TOOLKIT -->
             <section class="slide" data-title="My toolkit" data-notes="
               <li>Practical gift to the room — the actual stack I run on. Spend ~3 min, point at the ones they don't know.</li>
@@ -634,15 +778,15 @@
               <h2>My <span class="hl">toolkit</span></h2>
               <div class="rule"></div>
               <div class="grid g3" style="gap:13px;">
-                <div class="tool"><div class="t">DICTATION</div><h4>Wispr Flow</h4><p>I talk, it types. Most of my input is voice.</p></div>
-                <div class="tool"><div class="t">AI</div><h4>Claude + Claude Code</h4><p>My agents + how I build them.</p></div>
-                <div class="tool"><div class="t">AI</div><h4>ChatGPT</h4><p>Second opinion, quick lookups.</p></div>
-                <div class="tool"><div class="t">TERMINAL</div><h4>iTerm2</h4><p>Where the work happens.</p></div>
-                <div class="tool"><div class="t">EMAIL</div><h4>Missive</h4><p>Shared inbox my agents work inside.</p></div>
-                <div class="tool"><div class="t">MEETINGS</div><h4>Fathom</h4><p>Auto notes + transcripts.</p></div>
-                <div class="tool"><div class="t">LAUNCHER</div><h4>Alfred</h4><p>Keystroke everything.</p></div>
-                <div class="tool"><div class="t">CHAT</div><h4>Franz</h4><p>Every messaging app in one window.</p></div>
-                <div class="tool lab" style="border-width:2px;"><div class="t">DIY · BUILT IT</div><h4>WinMan + hi-res</h4><p>~200 lines of Swift: window snapping + a high-res display mode.</p></div>
+                <div class="tool"><img class="ico" src="img/icons/wispr.png" alt="Wispr Flow" /><div class="tx"><div class="t">DICTATION</div><h4>Wispr Flow</h4><p>I talk, it types. Most of my input is voice.</p></div></div>
+                <div class="tool"><img class="ico" src="img/icons/claude.png" alt="Claude" /><div class="tx"><div class="t">AI</div><h4>Claude + Code</h4><p>My agents — and how I build them.</p></div></div>
+                <div class="tool"><img class="ico" src="img/icons/chatgpt.png" alt="ChatGPT" /><div class="tx"><div class="t">AI</div><h4>ChatGPT</h4><p>Second opinion, quick lookups.</p></div></div>
+                <div class="tool"><img class="ico" src="img/icons/iterm.png" alt="iTerm2" /><div class="tx"><div class="t">TERMINAL</div><h4>iTerm2</h4><p>Where the work happens.</p></div></div>
+                <div class="tool"><img class="ico" src="img/icons/missive.png" alt="Missive" /><div class="tx"><div class="t">EMAIL</div><h4>Missive</h4><p>The shared inbox my agents work inside.</p></div></div>
+                <div class="tool"><img class="ico" src="img/icons/fathom.png" alt="Fathom" /><div class="tx"><div class="t">MEETINGS</div><h4>Fathom</h4><p>Auto notes + transcripts.</p></div></div>
+                <div class="tool"><img class="ico" src="img/icons/alfred.png" alt="Alfred" /><div class="tx"><div class="t">LAUNCHER</div><h4>Alfred</h4><p>Keystroke everything.</p></div></div>
+                <div class="tool"><img class="ico" src="img/icons/franz.png" alt="Franz" /><div class="tx"><div class="t">CHAT</div><h4>Franz</h4><p>Every messaging app in one window.</p></div></div>
+                <div class="tool lab"><img class="ico" src="img/icons/winman.png" alt="WinMan" /><div class="tx"><div class="t">DIY · BUILT IT</div><h4>WinMan + hi-res</h4><p>~200 lines of Swift: window snapping + a hi-res display mode.</p></div></div>
               </div>
               <p class="note">Keyboard-first, voice-first, and a few tools I wrote myself in an afternoon. <b>The bar to build your own has never been lower.</b></p>
             </section>
@@ -655,7 +799,7 @@
               <div class="kicker"><span class="b">THE FLOOR IS YOURS · ~1 HR</span></div>
               <h2>Open <span class="hl">discussion</span></h2>
               <div class="rule"></div>
-              <p class="prompt">Take it any direction — <span class="hl">investing, building, agents, the journey.</span> Ask the one you actually came with.</p>
+              <p class="prompt">Take it any direction — investing, building, agents, the journey. Ask the one you actually came with.</p>
               <p class="subprompt">Or let's get practical: build your agent live, or run a validation on your idea together.</p>
             </section>
 
