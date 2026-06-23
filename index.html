@@ -82,7 +82,7 @@
   .titlebar .wt { position: relative; background: var(--paper); padding: 0 16px; font-family: var(--sys); font-size: 12px; white-space: nowrap; max-width: 70%; overflow: hidden; text-overflow: ellipsis; z-index: 1; }
   .titlebar .turnchip { position: absolute; right: 8px; top: 3px; display: none; align-items: center; gap: 6px;
     background: var(--yellow); border: 2px solid var(--ink); padding: 2px 9px; font-family: var(--sys); font-size: 10px; z-index: 2; }
-  /* room / interactive mode — subtle: yellow drop-shadow + chip, no full-bar flip */
+  /* room / interactive mode: subtle yellow drop-shadow + chip, no full-bar flip */
   #window.you { border-color: var(--ink); box-shadow: 8px 8px 0 var(--yellow); }
   #window.you .titlebar .turnchip { display: inline-flex; background: var(--ink); color: var(--yellow); border-color: var(--ink); }
   .turnchip .dot { width: 7px; height: 7px; background: currentColor; border-radius: 50%; animation: blink 1s steps(1) infinite; }
@@ -232,7 +232,7 @@
   .strip { display: flex; gap: 10px; }
   .strip .photo { box-shadow: 5px 5px 0 rgba(0,0,0,0.85); border-width: 2px; }
 
-  /* slide-2 photo wall — larger + tumble-in reveal each time the slide opens */
+  /* slide-2 photo wall: larger + tumble-in reveal each time the slide opens */
   .pwall { display: flex; flex-direction: column; gap: 18px; align-items: center; }
   .pwall .strip { gap: 18px; }
   .about-photo { opacity: 0; transform: translateY(34px) rotate(var(--r,0deg)) scale(0.88);
@@ -243,7 +243,7 @@
   .slide.active .about-photo.d3 { transition-delay: .26s; }
   .slide.active .about-photo.d4 { transition-delay: .36s; }
 
-  /* ===== SCORING RUBRIC (40/30/30) — one readable card per dimension ===== */
+  /* ===== SCORING RUBRIC (40/30/30): one readable card per dimension ===== */
   .scoregrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; flex: 1; }
   .scol { display: flex; flex-direction: column; gap: 12px; min-height: 0; }
   .scol .phead { display: flex; align-items: baseline; justify-content: space-between; border-bottom: 2px solid var(--ink); padding-bottom: 7px; }
@@ -312,7 +312,7 @@
   #boot .bar .fill { height: 100%; width: 0%; background: repeating-linear-gradient(90deg, #fff 0 6px, #000 6px 8px); transition: width 0.3s linear; }
   #boot .skip { font-family: var(--pixel); font-size: 13px; color: #666; }
 
-  /* ===== CONTROLS — auto-hiding dock ===== */
+  /* ===== CONTROLS: auto-hiding dock ===== */
   #progress { position: fixed; bottom: 0; left: 0; height: 4px; background: var(--yellow); width: 0%; z-index: 90; transition: width 0.25s ease; }
   #dock { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%) translateY(18px); z-index: 95;
     display: flex; align-items: center; gap: 10px; padding: 6px 12px;
@@ -399,12 +399,12 @@
 
             <!-- 1 · TITLE -->
             <section class="slide active center" data-title="Welcome.app" data-notes="
-              <li><b>Open low-key.</b> 'Everything here is how I actually run things right now — I'd rather argue with you than talk at you.'</li>
-              <li><b>The format (agreed with SFF):</b> '~45 min from me, then the rest is yours — questions, building, any direction you want.'</li>
-              <li><b>House rules — say them, don't slide them:</b> interrupt me, steal the mic, derail the plan. My belief: 90% of blockers are bullshit; most process exists to make slow people feel busy. You'll leave with a working agent and a sharper sense of what I look for.</li>
-              <li><b>The hook — the tagline:</b> 'My goal is 100 companies with 3 people.' AI collapsed the cost of starting and running a company, so a tiny team can take a hundred shots. Today is about how — building AND investing.</li>
-              <li><b>The meta-point — built by an agent (don't reveal yet):</b> this whole deck — layout, copy, and code — was built by Thea, my personal agent. I gave her the brief and argued about wording; she did the rest. The talk about building with agents was built by one. Save the reveal for the 'Made by Thea' slide near the end.</li>
-              <li><b>Why it looks like this:</b> the retro-Mac frame is deliberate — a computer you boot up <i>is</i> a company now. System-6 black-and-white keeps it calm; the yellow marks only the one thing that matters on each slide. Less chrome, more signal — the same taste I want in the products I back.</li>">
+              <li><b>Open low-key.</b> 'Everything here is how I actually run things right now. I'd rather argue with you than talk at you.'</li>
+              <li><b>The format (agreed with SFF):</b> '~45 min from me, then the rest is yours: questions, building, any direction you want.'</li>
+              <li><b>House rules, say them, don't slide them:</b> interrupt me, steal the mic, derail the plan. My belief: 90% of blockers are bullshit; most process exists to make slow people feel busy. You'll leave with a working agent and a sharper sense of what I look for.</li>
+              <li><b>The hook, the tagline:</b> 'My goal is 100 companies with 3 people.' AI collapsed the cost of starting and running a company, so a tiny team can take a hundred shots. Today is about how: building AND investing.</li>
+              <li><b>The meta-point, built by an agent (don't reveal yet):</b> this whole deck (layout, copy, and code) was built by Thea, my personal agent. I gave her the brief and argued about wording; she did the rest. The talk about building with agents was built by one. Save the reveal for the 'Made by Thea' slide near the end.</li>
+              <li><b>Why it looks like this:</b> the retro-Mac frame is deliberate. A computer you boot up <i>is</i> a company now. System-6 black-and-white keeps it calm; the yellow marks only the one thing that matters on each slide. Less chrome, more signal: the same taste I want in the products I back.</li>">
               <div class="title-wrap">
                 <div class="kicker"><span class="b">CODE &amp; STATE × TOMAHAWK.VC</span></div>
                 <h1>Building &amp; Investing<br />in the <span class="hl">AI Era</span></h1>
@@ -415,7 +415,7 @@
                   <div>25 June 2026 · 2–5 PM CET</div>
                   <div class="web">cedricwaldburger.com</div>
                 </div>
-                <div class="title-sub" style="margin-top:10px;">EVEN THESE SLIDES — BUILT BY MY AGENTS, NOT ME.</div>
+                <div class="title-sub" style="margin-top:10px;">EVEN THESE SLIDES: BUILT BY MY AGENTS, NOT ME.</div>
                 <div class="title-sub">LESS TALKING, MORE BUILDING. HECKLING ENCOURAGED.</div>
               </div>
               <figure class="photo rotR" style="position:absolute; right:60px; top:46px; transform:rotate(2.5deg); width:316px;">
@@ -440,9 +440,9 @@
             <!-- 2 · ABOUT -->
             <section class="slide" data-title="About.app" data-notes="
               <li>Keep it SHORT. The pilot/diver/photographer line is fine color, but the proof is the numbers (~50 backed, 6 built) and the journey from Mediasign at 14 to a 100-company agent studio.</li>
-              <li>The numbers are the real proof you operate at scale with a tiny team — ~50 startups backed (Tomahawk.VC + Tenderloin; the fund breaks out 32 across Tomahawk funds I–III) and 6 companies built at Code &amp; State so far, on the way to 100 with 3 people.</li>
+              <li>The numbers are the real proof you operate at scale with a tiny team: ~50 startups backed (Tomahawk.VC + Tenderloin; the fund breaks out 32 across Tomahawk funds I–III) and 6 companies built at Code &amp; State so far, on the way to 100 with 3 people.</li>
               <li>Build (Mediasign at 14 · DFINITY · Sendtask) · Invest (Tomahawk.VC · Tenderloin · Liquity, where I chair) · Studio (Code &amp; State → ~100 agent-run companies).</li>
-              <li>The agents added the glasses (and the tape on the bridge) without my input. The caption is the joke — let them notice it.</li>">
+              <li>The agents added the glasses (and the tape on the bridge) without my input. The caption is the joke; let them notice it.</li>">
               <div class="kicker" style="margin-bottom:10px;"><span class="b">ABOUT ME</span></div>
               <h2 style="font-size:42px;">I build things, invest early,<br />and <span class="hl">keep it essential</span></h2>
               <div class="rule" style="margin:10px 0 14px;"></div>
@@ -454,9 +454,9 @@
                     <div class="card" style="padding:10px 18px;"><div class="big" style="font-size:38px;">6</div><h3>Companies built</h3><p>Code &amp; State · so far</p></div>
                   </div>
                   <ul class="checks tight" style="margin-top:12px;">
-                    <li><b>Build</b> — Mediasign (at 14) · DFINITY · Sendtask</li>
-                    <li><b>Invest</b> — Tomahawk.VC · Tenderloin · Liquity (chair)</li>
-                    <li><b>Studio</b> — Code &amp; State → ~100 agent-run companies</li>
+                    <li><b>Build:</b> Mediasign (at 14) · DFINITY · Sendtask</li>
+                    <li><b>Invest:</b> Tomahawk.VC · Tenderloin · Liquity (chair)</li>
+                    <li><b>Studio:</b> Code &amp; State → ~100 agent-run companies</li>
                   </ul>
                 </div>
                 <div style="display:flex; flex-direction:column; gap:16px; align-items:flex-start;">
@@ -491,45 +491,49 @@
             <section class="slide" data-title="Agenda" data-notes="
               <li>Set expectations: ~45 min of me, the rest is yours.</li>
               <li>Flag both live demos NOW so the asks on the next slides aren't a surprise.</li>
-              <li>Reiterate: interrupt anytime — 90% of blockers are bullshit.</li>">
+              <li>Reiterate: interrupt anytime; 90% of blockers are bullshit.</li>">
               <div class="kicker"><span class="b">THE PLAN · TWO THREADS</span></div>
               <h2>What we'll <span class="hl">do together</span></h2>
               <div class="rule"></div>
               <div class="grid g2">
-                <div class="card"><h3>① Investing in the AI era</h3><p>Stories &amp; insights from running a fund with agents — and we'll run YOUR pitch through Tommy, live.</p></div>
-                <div class="card"><h3>② Building in the AI era</h3><p>How we ideate &amp; validate companies at agent-speed — and we'll build &amp; validate ONE of your ideas, live.</p></div>
+                <div class="card"><h3>① Investing in the AI era</h3><p>Stories &amp; insights from running a fund with agents, and we'll run YOUR pitch through Tommy, live.</p></div>
+                <div class="card"><h3>② Building in the AI era</h3><p>How we ideate &amp; validate companies at agent-speed, and we'll build &amp; validate ONE of your ideas, live.</p></div>
               </div>
               <p class="quote" style="margin-top:22px;">Questions and inputs welcome at <span class="hl">any</span> point. Interrupt me.</p>
-              <p class="note">Two live demos depend on you — I'll ask for a pitch and an idea in a minute. Have them ready.</p>
+              <p class="note">Two live demos depend on you: I'll ask for a pitch and an idea in a minute. Have them ready.</p>
             </section>
 
             <!-- 4 · DIVIDER: INVESTING -->
-            <section class="slide divider center" data-title="01 — Investing" data-notes="
-              <li>Hat 1: investor. This whole section is run BY my fund agent Tommy — introduce him as a real teammate, not a feature.</li>
-              <li>Frame: 'I run Tomahawk.VC largely with agents. Let me show you how — and what that makes me look for in AI-era companies.'</li>
+            <section class="slide divider center" data-title="01 · Investing" data-notes="
+              <li>Hat 1: investor. This whole section is run BY my fund agent Tommy; introduce him as a real teammate, not a feature.</li>
+              <li>Frame: 'I run Tomahawk.VC largely with agents. Let me show you how, and what that makes me look for in AI-era companies.'</li>
               <li>This is a live-demo section: be ready to open the real Missive threads (next slides) on screen.</li>">
               <div class="num">01</div>
               <h1>Investing in the <span class="hl">AI Era</span></h1>
               <div class="epi">&ldquo;<span class="q">I run the fund with a team of agents. Let me introduce Tommy.</span>&rdquo;</div>
+              <figure class="photo rotL" style="position:absolute; right:66px; top:50%; transform:translateY(-50%) rotate(-2.5deg); width:340px;">
+                <img src="img/aircraft.png" style="height:424px" alt="aerial view over Cape Town from the cockpit" />
+                <div class="cap">AERIAL · THE LONG VIEW</div>
+              </figure>
             </section>
 
             <!-- 5 · SEND YOUR PITCH (CTA) -->
             <section class="slide" data-title="Send your pitch" data-mode="you" data-notes="
               <li>Say the address out loud twice. Put it on screen and leave it.</li>
-              <li>Tell them there are no format rules — a deck, a DocSend/Notion link, or a few sentences all work. We'll run 2–3 live later.</li>
-              <li>This is why it's early — pitches need ~30 min to land + run.</li>">
+              <li>Tell them there are no format rules: a deck, a DocSend/Notion link, or a few sentences all work. We'll run 2–3 live later.</li>
+              <li>This is why it's early: pitches need ~30 min to land + run.</li>">
               <div class="kicker"><span class="b">DO THIS NOW · ~2 MIN</span></div>
-              <h2>Send me your <span class="hl">pitch</span> — now</h2>
+              <h2>Send me your <span class="hl">pitch</span>, now</h2>
               <div class="rule"></div>
               <p class="prompt">Send me whatever you've got: a deck, a DocSend or Notion link, or just a few lines of text. No format rules.</p>
               <div class="funrow"><div class="fun" style="font-size:30px; padding:16px 26px;">cedric@tomahawk.vc</div></div>
-              <p class="subprompt">Later in this session, Tommy — my fund analyst — will score it live and show you the feedback he'd send. The earlier you send, the more we can cover.</p>
+              <p class="subprompt">Later in this session, Tommy (my fund analyst) will score it live and show you the feedback he'd send. The earlier you send, the more we can cover.</p>
             </section>
 
             <!-- 6 · MEET TOMMY -->
             <section class="slide" data-title="agent · tommy" data-notes="
-              <li>Introduce Tommy as a colleague, not a feature: 'This is Tommy — he sees every deal before I do.'</li>
-              <li>The point of this slide: he isn't a clever prompt, he's an analyst running inside an operating system. Walk the four cards — the runtime (Tartare spawns + logs him), the pre-loaded brain (thesis + 40/30/30 rubric + the whole portfolio), the automated email→Missive→Thea→Tommy trigger, and the team in their lanes.</li>
+              <li>Introduce Tommy as a colleague, not a feature: 'This is Tommy; he sees every deal before I do.'</li>
+              <li>The point of this slide: he isn't a clever prompt, he's an analyst running inside an operating system. Walk the four cards: the runtime (Tartare spawns + logs him), the pre-loaded brain (thesis + 40/30/30 rubric + the whole portfolio), the automated email→Missive→Thea→Tommy trigger, and the team in their lanes.</li>
               <li>Mandate if asked: pre-seed / seed · $100–500K first check · software-first · US / EU / GCC. Portfolio: 32 across Tomahawk funds I–III.</li>">
               <div class="kicker"><span class="b">MY FUND TEAM · TOMAHAWK.VC</span></div>
               <h2>Meet <span class="hl">Tommy</span>, my fund analyst</h2>
@@ -539,13 +543,13 @@
                 <div>
                   <div class="nm">Tommy</div>
                   <div class="role">INVESTMENT ANALYSIS AGENT · TOMAHAWK.VC</div>
-                  <div class="desc">Sees every inbound before I do. He doesn't decide — he makes sure each deal is either killed cleanly or lands on my desk fully dissected and IC-ready, inside 48 hours.</div>
+                  <div class="desc">Sees every inbound before I do. He doesn't decide; he makes sure each deal is either killed cleanly or lands on my desk fully dissected and IC-ready, inside 48 hours.</div>
                 </div>
               </div>
-              <div class="kicker" style="margin-bottom:12px;"><span class="b">WHAT RUNS AROUND HIM — THE SCAFFOLDING</span></div>
+              <div class="kicker" style="margin-bottom:12px;"><span class="b">WHAT RUNS AROUND HIM: THE SCAFFOLDING</span></div>
               <div class="grid g2" style="gap:14px;">
-                <div class="card"><h3>A runtime, not a chatbot</h3><p>Tartare spawns him when a trigger fires and logs every step — auditable and repeatable, not a chat window.</p></div>
-                <div class="card"><h3>Pre-loaded with the fund's brain</h3><p>Thesis, the 40/30/30 rubric, the whole portfolio — injected at startup. He begins ready, not briefed.</p></div>
+                <div class="card"><h3>A runtime, not a chatbot</h3><p>Tartare spawns him when a trigger fires and logs every step: auditable and repeatable, not a chat window.</p></div>
+                <div class="card"><h3>Pre-loaded with the fund's brain</h3><p>Thesis, the 40/30/30 rubric, the whole portfolio, all injected at startup. He begins ready, not briefed.</p></div>
                 <div class="card"><h3>An automated trigger chain</h3><p>Email → Missive → Thea attaches the deck → Tommy picks it up in ~60 seconds. No human touch.</p></div>
                 <div class="card"><h3>Teammates in their lanes</h3><p>Kestrel red-teams blind · Thea drafts &amp; sends · then he closes the loop into Notion + Slack.</p></div>
               </div>
@@ -554,7 +558,7 @@
             <!-- 7 · PRINCIPLES · INVESTING -->
             <section class="slide" data-title="principles · investing" data-notes="
               <li>Lead: code went to ~zero, so a working demo proves nothing. Distribution and first revenue are the new signal.</li>
-              <li>Tell the first-dollar story — the moment a stranger pays changes everything.</li>
+              <li>Tell the first-dollar story: the moment a stranger pays changes everything.</li>
               <li>Tie back to the rubric: this is why Market + Moat weight what they do.</li>">
               <div class="kicker"><span class="b">THE TWO THINGS THAT NOW DECIDE IT</span></div>
               <h2>Code has become <span class="hl">cheap</span></h2>
@@ -567,88 +571,88 @@
                 <div>
                   <div class="kicker" style="margin-bottom:12px;"><span class="b plain">WHAT I NOW WEIGHT MOST</span></div>
                   <ul class="checks tight">
-                    <li><b>First dollars of revenue</b> <span>— the single most important proof. Someone paid; the rest is detail.</span></li>
-                    <li><b>A repeatable channel</b> <span>— one wedge they can describe and scale, not "content + paid + PH".</span></li>
-                    <li><b>10x on one axis</b> <span>— not 3x on five. One miracle, not four.</span></li>
+                    <li><b>First dollars of revenue</b> <span>the single most important proof. Someone paid; the rest is detail.</span></li>
+                    <li><b>A repeatable channel</b> <span>one wedge they can describe and scale, not "content + paid + PH".</span></li>
+                    <li><b>10x on one axis</b> <span>not 3x on five. One miracle, not four.</span></li>
                   </ul>
                 </div>
               </div>
               <p class="quote" style="margin-top:18px; font-size:28px;">Code is cheap. Customers aren't.</p>
-              <div class="egg-note">// thea's note: cédric wanted 6 principles. i cut it to 2. — t</div>
+              <div class="egg-note">// thea's note: cédric wanted 6 principles. i cut it to 2. /t</div>
             </section>
 
             <!-- 8 · WALKTHROUGH: THE READ -->
             <section class="slide" data-title="Deal · the read" data-notes="
-              <li>Slow down here — this is the real one, end to end. Anonymized to sector (a UK music-licensing startup). What landed: a warm family-office intro + a 25-slide memo, raising ~£1.1M to breakeven.</li>
-              <li>Walk the table left to right. The story in one line: real tech, real revenue, but the shape is wrong — nine years and £18M to reach £1.43M ARR, and the labels who supply the music also control the exit.</li>
+              <li>Slow down here: this is the real one, end to end. Anonymized to sector (a UK music-licensing startup). What landed: a warm family-office intro + a 25-slide memo, raising ~£1.1M to breakeven.</li>
+              <li>Walk the table left to right. The story in one line: real tech, real revenue, but the shape is wrong. Nine years and £18M to reach £1.43M ARR, and the labels who supply the music also control the exit.</li>
               <li>Tommy lands on DISCUSS 3.0 and does the one thing that kills confirmation bias: flags it to Kestrel BEFORE forming a final view.</li>">
               <div class="kicker"><span class="b">DEMO · ONE REAL DEAL, END TO END</span></div>
-              <h2>What landed — and how Tommy <span class="hl">read it</span></h2>
+              <h2>What landed, and how Tommy <span class="hl">read it</span></h2>
               <div class="rule" style="margin:12px 0 16px;"></div>
-              <div class="inbound" style="margin-bottom:16px;"><b>What landed:</b> a warm family-office intro forwards the CEO of a UK <b>music-licensing startup</b> — licenses mainstream music to creators and brands on the major video platforms. A 25-slide memo arrives the same minute. Raising <b>£1.1M</b> to breakeven · £2.5M pre · EIS.</div>
+              <div class="inbound" style="margin-bottom:16px;"><b>What landed:</b> a warm family-office intro forwards the CEO of a UK <b>music-licensing startup</b> that licenses mainstream music to creators and brands on the major video platforms. A 25-slide memo arrives the same minute. Raising <b>£1.1M</b> to breakeven · £2.5M pre · EIS.</div>
               <div class="dealscore">
                 <div class="hdr">PILLAR</div><div class="hdr">SCORE</div><div class="hdr">WHAT DROVE IT</div>
-                <div class="pl">Founder</div><div class="sc">3</div><div>Nine years building the only rights-clearance tech that lives inside the major video platform's system — but the founder's been diluted to a sliver.</div>
+                <div class="pl">Founder</div><div class="sc">3</div><div>Nine years building the only rights-clearance tech that lives inside the major video platform's system, but the founder's been diluted to a sliver.</div>
                 <div class="pl">Market</div><div class="sc">4</div><div>A real, verifiable licensing gap. ~6k paying subscribers, £1.43M ARR; a brand vertical just starting to prove out.</div>
-                <div class="pl">Moat</div><div class="sc">2</div><div>Technically deep — but the labels are supplier, shareholder, AND hold change-of-control. The moat caps the margin.</div>
+                <div class="pl">Moat</div><div class="sc">2</div><div>Technically deep, but the labels are supplier, shareholder, AND hold change-of-control. The moat caps the margin.</div>
                 <div class="vr">Tommy → <b>DISCUSS 3.0</b> &nbsp;·&nbsp; "the brand vertical has something; nine years and £18M to reach £1.43M ARR does not." &nbsp;→ flag to Kestrel, blind.</div>
               </div>
             </section>
 
             <!-- 9 · WALKTHROUGH: KESTREL RED-TEAM -->
             <section class="slide" data-title="Deal · red-team" data-notes="
-              <li>Kestrel never sees Tommy's score — it argues the other side from scratch on the same deck. Converge → conviction; diverge → that gap is the whole IC conversation.</li>
+              <li>Kestrel never sees Tommy's score; it argues the other side from scratch on the same deck. Converge → conviction; diverge → that gap is the whole IC conversation.</li>
               <li>Read a couple from each column. The cons are what flip it: £18M → £1.43M, comps that don't support the ask, labels controlling the exit, a down-round that's the prior investors' verdict in writing.</li>
-              <li>Kestrel comes back PASS, conviction 1/5 — and overrides the DISCUSS. The point: I want my agents to disagree in the open.</li>">
+              <li>Kestrel comes back PASS, conviction 1/5, and overrides the DISCUSS. The point: I want my agents to disagree in the open.</li>">
               <div class="kicker"><span class="b">KESTREL · BLIND COUNTER-REVIEW</span></div>
-              <h2>Then Kestrel attacks it — <span class="hl">blind</span></h2>
+              <h2>Then Kestrel attacks it, <span class="hl">blind</span></h2>
               <div class="rule" style="margin:12px 0 16px;"></div>
               <div class="two-col" style="grid-template-columns:1fr 1fr; gap:24px; flex:none;">
                 <div class="pc pros">
-                  <div class="pch">PROS — THE BULL CASE</div>
+                  <div class="pch">PROS: THE BULL CASE</div>
                   <ul>
-                    <li>A real, verifiable problem — an industry-wide licensing gap, not a niche complaint.</li>
-                    <li>Genuine technical depth — integrates at the video platform's rights-infrastructure layer; nine years to build.</li>
+                    <li>A real, verifiable problem: an industry-wide licensing gap, not a niche complaint.</li>
+                    <li>Genuine technical depth: integrates at the video platform's rights-infrastructure layer; nine years to build.</li>
                     <li>Label equity stakes create supply alignment and real switching costs.</li>
-                    <li>Brand vertical shows live demand — six figures already invoiced to early customers.</li>
+                    <li>Brand vertical shows live demand: six figures already invoiced to early customers.</li>
                   </ul>
                 </div>
                 <div class="pc cons">
-                  <div class="pch">CONS — THE BEAR CASE</div>
+                  <div class="pch">CONS: THE BEAR CASE</div>
                   <ul>
-                    <li>Capital-efficiency failure — £18M across five rounds to reach £1.43M ARR. A nine-year stall.</li>
-                    <li>Exit math fails — public comps trade ~8× revenue; £300–500M needs 15–25× growth.</li>
-                    <li>The moat is a margin trap — the labels control any exit and the margin ceiling.</li>
-                    <li>Misaligned cap table — the last round was a steep down-round: prior investors' verdict, in writing.</li>
+                    <li>Capital-efficiency failure: £18M across five rounds to reach £1.43M ARR. A nine-year stall.</li>
+                    <li>Exit math fails: public comps trade ~8× revenue; £300–500M needs 15–25× growth.</li>
+                    <li>The moat is a margin trap: the labels control any exit and the margin ceiling.</li>
+                    <li>Misaligned cap table: the last round was a steep down-round, prior investors' verdict, in writing.</li>
                   </ul>
                 </div>
               </div>
-              <div class="verbar">KESTREL: <b>PASS · conviction 1/5</b> &nbsp;—&nbsp; best case is a small acqui-license. Not a venture outcome.</div>
+              <div class="verbar">KESTREL: <b>PASS · conviction 1/5</b> &nbsp;·&nbsp; best case is a small acqui-license. Not a venture outcome.</div>
             </section>
 
             <!-- 10 · WALKTHROUGH: THE REPLY -->
             <section class="slide" data-title="Deal · the reply" data-notes="
-              <li>Nothing external sends without my yes. Tommy integrates Kestrel, revises to PASS, and Thea drafts the decline in my voice — I read it, agree, hit send.</li>
+              <li>Nothing external sends without my yes. Tommy integrates Kestrel, revises to PASS, and Thea drafts the decline in my voice; I read it, agree, hit send.</li>
               <li>The decline is honest and specific: it names the real reason (the math + the structural exit ceiling), not a brush-off. That's how you keep a relationship after a no.</li>
-              <li>The founder's reply confirmed the read rather than changing it — and they got a straight answer in days, not silence for weeks. End on that.</li>">
+              <li>The founder's reply confirmed the read rather than changing it, and they got a straight answer in days, not silence for weeks. End on that.</li>">
               <div class="kicker"><span class="b">OUTREACH · DRAFTED FOR MY SEND</span></div>
-              <h2>The reply I sent — and what came <span class="hl">back</span></h2>
+              <h2>The reply I sent, and what came <span class="hl">back</span></h2>
               <div class="rule" style="margin:12px 0 16px;"></div>
               <div class="two-col" style="grid-template-columns:1.18fr 0.82fr; gap:22px; flex:none;">
                 <div class="mail">
                   <div class="mh"><span>▸ DRAFT · DECLINE · THEA, IN CÉDRIC'S VOICE</span><span class="y">waiting: my send</span></div>
                   <div class="mb">
-                    <p>Thanks for the detailed walkthrough — you've built something technically real that nobody's managed in nine years, and the brand-licensing angle is genuinely interesting.</p>
-                    <p>We're going to pass. The math doesn't work at this entry: £18M+ deployed to reach £1.43M ARR isn't a seed story, and the comps don't support a £300–500M outcome from here. The label equity and change-of-control structure also caps the margin and the exit — structural, not solvable with this raise.</p>
-                    <p>Wishing you the best with the round.<br /><span class="sig">— Cédric</span></p>
+                    <p>Thanks for the detailed walkthrough. You've built something technically real that nobody's managed in nine years, and the brand-licensing angle is genuinely interesting.</p>
+                    <p>We're going to pass. The math doesn't work at this entry: £18M+ deployed to reach £1.43M ARR isn't a seed story, and the comps don't support a £300–500M outcome from here. The label equity and change-of-control structure also caps the margin and the exit: structural, not solvable with this raise.</p>
+                    <p>Wishing you the best with the round.<br /><span class="sig">Cédric</span></p>
                   </div>
                 </div>
                 <div style="display:flex; flex-direction:column; gap:16px;">
                   <div class="mail">
                     <div class="mh"><span>◂ THE FOUNDER REPLIED</span></div>
-                    <div class="mb">Answered every kill-question straight: six figures invoiced to early brand customers, ~£190k/month burn, no independent runway — and the whole exit thesis rested on a catalogue unlock that was an "agreement in principle" from days earlier.</div>
+                    <div class="mb">Answered every kill-question straight: six figures invoiced to early brand customers, ~£190k/month burn, no independent runway; and the whole exit thesis rested on a catalogue unlock that was an "agreement in principle" from days earlier.</div>
                   </div>
-                  <p class="note" style="margin-top:0;">The answers <b>confirmed</b> the read — they didn't change it. A clean pass, fast — and the founder got a real reason, not silence.</p>
+                  <p class="note" style="margin-top:0;">The answers <b>confirmed</b> the read; they didn't change it. A clean pass, fast, and the founder got a real reason, not silence.</p>
                 </div>
               </div>
             </section>
@@ -656,17 +660,17 @@
             <!-- 11 · WHAT TOMMY SAID (live pitch template) -->
             <section class="slide" data-title="What Tommy said" data-notes="
               <li>Open the real Missive threads for the pitches that came in.</li>
-              <li>Don't defend Tommy — ask the room where they'd overrule him. That divergence is the lesson.</li>
+              <li>Don't defend Tommy; ask the room where they'd overrule him. That divergence is the lesson.</li>
               <li>If no pitches arrived, run one volunteer's deck live right here.</li>">
               <div class="kicker"><span class="b">LIVE · THE PITCHES YOU SENT</span></div>
-              <h2>Your pitches — <span class="hl">Tommy's read</span></h2>
+              <h2>Your pitches, <span class="hl">Tommy's read</span></h2>
               <div class="rule"></div>
-              <p class="note" style="margin-top:0;">We sent your pitches through Tommy during the session. Here's how he scored them and what he'd reply — let's discuss.</p>
+              <p class="note" style="margin-top:0;">We sent your pitches through Tommy during the session. Here's how he scored them and what he'd reply. Let's discuss.</p>
               <div class="dealscore" style="margin-top:16px;">
                 <div class="hdr">PITCH</div><div class="hdr">SCORE</div><div class="hdr">TOMMY'S CALL</div>
-                <!-- FILL LIVE --><div class="pl">Pitch A</div><div class="sc">—</div><div>filled live</div>
-                <!-- FILL LIVE --><div class="pl">Pitch B</div><div class="sc">—</div><div>filled live</div>
-                <!-- FILL LIVE --><div class="pl">Pitch C</div><div class="sc">—</div><div>filled live</div>
+                <!-- FILL LIVE --><div class="pl">Pitch A</div><div class="sc">·</div><div>filled live</div>
+                <!-- FILL LIVE --><div class="pl">Pitch B</div><div class="sc">·</div><div>filled live</div>
+                <!-- FILL LIVE --><div class="pl">Pitch C</div><div class="sc">·</div><div>filled live</div>
                 <div class="vr">Discussion → <b>where do you agree / disagree with Tommy?</b></div>
               </div>
               <div class="mail" style="margin-top:16px;">
@@ -676,10 +680,10 @@
             </section>
 
             <!-- 12 · DIVIDER: BUILDING -->
-            <section class="slide divider center" data-title="02 — Building" data-notes="
+            <section class="slide divider center" data-title="02 · Building" data-notes="
               <li>Hat 2: company-builder. This section is run BY Spark, my Code &amp; State studio agent.</li>
-              <li>Frame: 'Same idea as the fund — agents collapse the cost. At Code &amp; State we use them to ideate and validate companies fast.'</li>
-              <li>Mention Tartare here: the platform that orchestrates the whole fleet (Tommy, Spark, Thea, Kestrel) is something I built — happy to go deep in the open hour.</li>">
+              <li>Frame: 'Same idea as the fund: agents collapse the cost. At Code &amp; State we use them to ideate and validate companies fast.'</li>
+              <li>Mention Tartare here: the platform that orchestrates the whole fleet (Tommy, Spark, Thea, Kestrel) is something I built; happy to go deep in the open hour.</li>">
               <div class="num">02</div>
               <h1>Building in the <span class="hl">AI Era</span></h1>
               <div class="epi">&ldquo;<span class="q">Zero to one, agent-speed. Let me introduce Spark.</span>&rdquo;</div>
@@ -691,7 +695,7 @@
 
             <!-- 13 · TWO COMPONENTS -->
             <section class="slide" data-title="Two components" data-notes="
-              <li>Name both out loud and keep them distinct — Factory = generation, Validation = falsification.</li>
+              <li>Name both out loud and keep them distinct: Factory = generation, Validation = falsification.</li>
               <li>The handoff is the magic: ideas are cheap, so the team that kills fastest wins.</li>
               <li>Detail on each comes next; this is the map.</li>">
               <div class="kicker"><span class="b">HOW WE BUILD 0→1 AT CODE &amp; STATE</span></div>
@@ -699,7 +703,7 @@
               <div class="rule"></div>
               <div class="grid g2">
                 <div class="card"><h3>① The Idea Factory</h3><p>Spark turns real signals into a ranked pipeline of ideas against our thesis. It decides WHAT is worth a test.</p></div>
-                <div class="card"><h3>② The Validation Team</h3><p>A squad of agents that runs the cheapest test that could kill each idea — fast, falsifiable, in days not months. It decides what's REAL.</p></div>
+                <div class="card"><h3>② The Validation Team</h3><p>A squad of agents that runs the cheapest test that could kill each idea: fast, falsifiable, in days not months. It decides what's REAL.</p></div>
               </div>
               <div class="funnel" style="margin-top:20px;">
                 <div class="step"><div class="n">FACTORY</div><h4>What to test</h4><p>Signals → ranked ideas.</p></div>
@@ -715,18 +719,18 @@
               <li>Set the expectation: results land on the 'Live results' slide.</li>
               <li>If the room is shy, use the metered-billing candidate as the fallback.</li>">
               <div class="kicker"><span class="b">START NOW · ~2 MIN</span></div>
-              <h2>Give me an <span class="hl">idea</span> — we'll run it live</h2>
+              <h2>Give me an <span class="hl">idea</span>, we'll run it live</h2>
               <div class="rule"></div>
-              <p class="prompt">Throw out a real idea from the room — one of yours, or a hole in a market you keep seeing.</p>
-              <p class="subprompt">We'll kick it into the Idea Factory + Validation Team right now. While I walk you through how they work, the agents run in the background — and we'll look at the results together at the end of this section.</p>
+              <p class="prompt">Throw out a real idea from the room: one of yours, or a hole in a market you keep seeing.</p>
+              <p class="subprompt">We'll kick it into the Idea Factory + Validation Team right now. While I walk you through how they work, the agents run in the background, and we'll look at the results together at the end of this section.</p>
               <div class="funrow"><div class="fun">We start the run before we explain it. That's the point.</div></div>
             </section>
 
             <!-- 15 · THE IDEA FACTORY (Spark, merged) -->
             <section class="slide" data-title="Idea Factory" data-notes="
-              <li>Introduce Spark as a colleague who runs the studio's idea + validation engine — the loop on the slide is how Code &amp; State actually works.</li>
+              <li>Introduce Spark as a colleague who runs the studio's idea + validation engine; the loop on the slide is how Code &amp; State actually works.</li>
               <li>Three phases: Discover → Validate → Build/Spin-out. Signals are real: HN Show HN, IndieHackers milestone threads, live Ahrefs keyword difficulty.</li>
-              <li>The discipline that matters: name the ICP in ONE sentence; write a single falsifiable kill-threshold BEFORE spending a dollar ('10 paying users at $49/mo in 45 days — or kill').</li>
+              <li>The discipline that matters: name the ICP in ONE sentence; write a single falsifiable kill-threshold BEFORE spending a dollar ('10 paying users at $49/mo in 45 days, or kill').</li>
               <li>Cost ladder, cheapest first: ask people in a room → check SEO live → $500 ad test → build. Kill cheerfully, log the one signal that killed it. Weekly: kill one, add one, advance one. Tartare orchestrates the whole fleet.</li>">
               <div class="kicker"><span class="b">CODE &amp; STATE · DISCOVER → VALIDATE → BUILD → SPIN-OUT</span></div>
               <h2>The <span class="hl">Idea Factory</span>, run by Spark</h2>
@@ -742,7 +746,7 @@
               <div class="funnel">
                 <div class="step"><div class="n">DISCOVER</div><h4>Signals → ideas</h4><p>HN Show HN, IndieHackers, live SEO (Ahrefs KD). Against a thesis.</p></div>
                 <div class="step"><div class="n">VALIDATE</div><h4>One falsifiable bar</h4><p>Name the ICP in a sentence. Write the kill threshold before spending.</p></div>
-                <div class="step"><div class="n">BUILD</div><h4>2-wk prototype</h4><p>Cheapest test that changes our mind — not "can we build it?"</p></div>
+                <div class="step"><div class="n">BUILD</div><h4>2-wk prototype</h4><p>Cheapest test that changes our mind, not "can we build it?"</p></div>
                 <div class="step"><div class="n">SPIN-OUT</div><h4>Own repo + CEO</h4><p>Winners spin out into their own company. The factory moves on.</p></div>
               </div>
               <p class="note" style="margin-top:18px;">Validate cheapest-first: <b>ask the room → check live SEO → $500 ad test →</b> only then build.</p>
@@ -752,14 +756,14 @@
             <section class="slide" data-title="Validation Team" data-notes="
               <li>This is the new muscle: not 'can we build it?' but 'what's the cheapest test that could kill it?'</li>
               <li>Walk the four roles as a relay: Scout finds the wedge, Interviewer frames the bet, Bear attacks, Scorekeeper sets the bar and calls it.</li>
-              <li>The whole thing is automated on Tartare — the room's idea is running through exactly this right now.</li>">
+              <li>The whole thing is automated on Tartare; the room's idea is running through exactly this right now.</li>">
               <div class="kicker"><span class="b">THE SQUAD THAT TRIES TO KILL EVERY IDEA</span></div>
               <h2>Inside the Validation Team</h2>
               <div class="rule"></div>
               <div class="grid g2">
                 <div class="card"><h3>The Scout</h3><p>Pulls live signal: search volume + keyword difficulty, Show HN / IndieHackers threads, who's already shipping. Is anyone hurting, and is the wedge open?</p></div>
                 <div class="card"><h3>The Interviewer</h3><p>Names the ICP in one sentence and writes the kill-question set. Drafts the landing copy and the offer to test willingness-to-pay.</p></div>
-                <div class="card"><h3>The Bear</h3><p>Argues the idea is dead on arrival — incumbents, "Stripe already shipped this," no distribution. Blind to the bull case, like Kestrel on deals.</p></div>
+                <div class="card"><h3>The Bear</h3><p>Argues the idea is dead on arrival: incumbents, "Stripe already shipped this," no distribution. Blind to the bull case, like Kestrel on deals.</p></div>
                 <div class="card"><h3>The Scorekeeper</h3><p>Writes ONE falsifiable threshold before a dollar is spent (e.g. 10 paying at $49/mo in 45 days) and calls it: kill, iterate, or build.</p></div>
               </div>
               <p class="quote" style="margin-top:18px; font-size:26px;">One falsifiable bar, written <span class="hl">before</span> we spend. Then we try to fail it.</p>
@@ -773,35 +777,35 @@
             <!-- 17 · LIVE VALIDATION (results template) -->
             <section class="slide" data-title="Live validation" data-mode="you" data-notes="
               <li>Real candidate from the factory: a <b>metered-billing configurator for API-first SaaS</b> ($49/mo, connect Stripe → define usage events → live in 15 min). Signal from 4 HN Show HN + 3 IndieHackers threads, May–June.</li>
-              <li>Run the 5 steps live, ~8 min. The two hand-counts ARE the data — the gap between 'charge on usage' and 'want to but haven't' is the ICP, sitting in the room.</li>
-              <li>Threshold to write live: 10 paying signups at $49/mo within 45 days; $500 on Google Search; kill if &lt;5 after 21 days. If a founder says 'Stripe shipped this' — open the docs live and kill it in the room. That's the factory working.</li>
+              <li>Run the 5 steps live, ~8 min. The two hand-counts ARE the data: the gap between 'charge on usage' and 'want to but haven't' is the ICP, sitting in the room.</li>
+              <li>Threshold to write live: 10 paying signups at $49/mo within 45 days; $500 on Google Search; kill if &lt;5 after 21 days. If a founder says 'Stripe shipped this', open the docs live and kill it in the room. That's the factory working.</li>
               <li>Read the actual result first; use the metered-billing walkthrough only as the fallback if the live run didn't finish.</li>">
               <div class="kicker"><span class="b">DEMO · VALIDATE ONE LIVE · ~8 MIN</span></div>
-              <h2>Live: <span class="hl">your idea</span> — the results</h2>
+              <h2>Live: <span class="hl">your idea</span>, the results</h2>
               <div class="rule"></div>
-              <p class="note" style="margin-top:0; margin-bottom:6px;">The idea you gave me ran through the squad while we talked. Here's where it landed — kill, iterate, or greenlight a $500 test.</p>
+              <p class="note" style="margin-top:0; margin-bottom:6px;">The idea you gave me ran through the squad while we talked. Here's where it landed: kill, iterate, or greenlight a $500 test.</p>
               <div class="runlist">
-                <div class="row"><div class="time">HANDS</div><div class="what"><b>ICP check.</b><span>Who charges on usage? Who wants to but hasn't — too complex? The gap is the ICP.</span></div></div>
-                <div class="row"><div class="time">LIVE</div><div class="what"><b>SERP + SEO check.</b><span>Search 'stripe metered billing setup' — nothing founder-friendly. Ahrefs KD ~20–28: the wedge is open.</span></div></div>
+                <div class="row"><div class="time">HANDS</div><div class="what"><b>ICP check.</b><span>Who charges on usage? Who wants to but hasn't (too complex)? The gap is the ICP.</span></div></div>
+                <div class="row"><div class="time">LIVE</div><div class="what"><b>SERP + SEO check.</b><span>Search 'stripe metered billing setup': nothing founder-friendly. Ahrefs KD ~20–28: the wedge is open.</span></div></div>
                 <div class="row"><div class="time">HANDS</div><div class="what"><b>Willingness to pay.</b><span>Who'd pay $49/mo today? 3 of 8 hands = enough to justify a $500 ad test.</span></div></div>
-                <div class="row"><div class="time">WRITE</div><div class="what"><b>Set the kill threshold.</b><span>10 paying signups at $49/mo in 45 days — or kill. Written before a dollar is spent.</span></div></div>
-                <div class="row"><div class="time">BEAR</div><div class="what"><b>Run the bear case.</b><span>"What makes this fail?" If Stripe already shipped it — open the docs, kill it in the room.</span></div></div>
+                <div class="row"><div class="time">WRITE</div><div class="what"><b>Set the kill threshold.</b><span>10 paying signups at $49/mo in 45 days, or kill. Written before a dollar is spent.</span></div></div>
+                <div class="row"><div class="time">BEAR</div><div class="what"><b>Run the bear case.</b><span>"What makes this fail?" If Stripe already shipped it, open the docs, kill it in the room.</span></div></div>
               </div>
               <div class="funrow"><div class="fun">Kill it in the room, or greenlight a $500 test. No deck.</div></div>
             </section>
 
             <!-- 18 · MY TOOLKIT (Alfred removed) -->
             <section class="slide" data-title="My toolkit" data-notes="
-              <li>Practical gift to the room — the actual stack I run on. Spend ~3 min, point at the ones they don't know.</li>
+              <li>Practical gift to the room: the actual stack I run on. Spend ~3 min, point at the ones they don't know.</li>
               <li>Show, don't tell: dictate a sentence with Wispr Flow live; flick a window with WinMan; toggle the high-res mode.</li>
-              <li>The DIY angle: 'WinMan is ~200 lines of Swift I built in an afternoon. You can build your own tools now — that's the whole point.'</li>
-              <li>List is final — Alfred removed (stopped using it). Point at Wispr + WinMan as the show-don't-tell demos.</li>">
+              <li>The DIY angle: 'WinMan is ~200 lines of Swift I built in an afternoon. You can build your own tools now; that's the whole point.'</li>
+              <li>List is final, Alfred removed (stopped using it). Point at Wispr + WinMan as the show-don't-tell demos.</li>">
               <div class="kicker"><span class="b">THE STACK I ACTUALLY RUN ON</span></div>
               <h2>My <span class="hl">toolkit</span></h2>
               <div class="rule"></div>
               <div class="grid g3" style="gap:13px;">
                 <div class="tool"><img class="ico" src="img/icons/wispr.png" alt="Wispr Flow" /><div class="tx"><div class="t">DICTATION</div><h4>Wispr Flow</h4><p>I talk, it types. Most of my input is voice.</p></div></div>
-                <div class="tool"><img class="ico" src="img/icons/claude.png" alt="Claude" /><div class="tx"><div class="t">AI</div><h4>Claude + Code</h4><p>My agents — and how I build them.</p></div></div>
+                <div class="tool"><img class="ico" src="img/icons/claude.png" alt="Claude" /><div class="tx"><div class="t">AI</div><h4>Claude + Code</h4><p>My agents, and how I build them.</p></div></div>
                 <div class="tool"><img class="ico" src="img/icons/chatgpt.png" alt="ChatGPT" /><div class="tx"><div class="t">AI</div><h4>ChatGPT</h4><p>Second opinion, quick lookups.</p></div></div>
                 <div class="tool"><img class="ico" src="img/icons/iterm.png" alt="iTerm2" /><div class="tx"><div class="t">TERMINAL</div><h4>iTerm2</h4><p>Where the work happens.</p></div></div>
                 <div class="tool"><img class="ico" src="img/icons/missive.png" alt="Missive" /><div class="tx"><div class="t">EMAIL</div><h4>Missive</h4><p>The shared inbox my agents work inside.</p></div></div>
@@ -814,11 +818,11 @@
 
             <!-- 19 · HOW WE DO THINGS (playbook) -->
             <section class="slide" data-title="How we do things" data-notes="
-              <li>This is the souvenir slide — the 5 things to do Monday.</li>
+              <li>This is the souvenir slide: the 5 things to do Monday.</li>
               <li>Tell one war story per tip if time allows; otherwise read them fast.</li>
               <li>Offer office hours to help them write their first agent job description.</li>">
               <div class="kicker"><span class="b">THE DO-THIS-TOMORROW PLAYBOOK</span></div>
-              <h2>How we do things — <span class="hl">start tomorrow</span></h2>
+              <h2>How we do things: <span class="hl">start tomorrow</span></h2>
               <div class="rule"></div>
               <ul class="checks">
                 <li><b>Write a job description, not a prompt.</b> <span>Role · owns · inputs · steps · never · escalate. The contract beats cleverness.</span></li>
@@ -832,15 +836,15 @@
 
             <!-- 20 · MADE BY THEA (the reveal) -->
             <section class="slide" data-title="Made by Thea" data-notes="
-              <li>THE reveal — let it land, then pause. 'Every slide you've looked at, every line of copy, the layout, the code — built by Thea, my personal agent. I briefed her and we argued about wording. I never opened a design tool.'</li>
+              <li>THE reveal: let it land, then pause. 'Every slide you've looked at, every line of copy, the layout, the code, all built by Thea, my personal agent. I briefed her and we argued about wording. I never opened a design tool.'</li>
               <li>WHY it looks the way it does, in my words: the retro-Mac frame because a computer you boot up is a company now; black-and-white so the one yellow thing per slide is the point; demo-first because showing beats telling.</li>
               <li>The meta-point closes the loop: the talk about building with agents was itself built by one. That's the whole thesis in a single move. Then → open hour.</li>">
-              <div class="kicker"><span class="b">P.S. — THE REVEAL</span></div>
+              <div class="kicker"><span class="b">P.S. · THE REVEAL</span></div>
               <h2>This deck was built <span class="hl">by Thea</span></h2>
               <div class="rule"></div>
               <div class="two-col" style="grid-template-columns: 0.92fr 1.08fr; gap: 36px;">
                 <div>
-                  <p class="lead">Every slide, every line of copy, the layout, the code — built by <b>Thea</b>, my personal agent. I gave her the brief and we argued about wording. I never opened a design tool.</p>
+                  <p class="lead">Every slide, every line of copy, the layout, the code: all built by <b>Thea</b>, my personal agent. I gave her the brief and we argued about wording. I never opened a design tool.</p>
                   <p class="note" style="margin-top:16px;"><b>Why it looks like this:</b> the retro-Mac frame, because a computer you boot up <i>is</i> a company now · black-and-white, so the one yellow thing per slide is the point · demo-first, because showing beats telling.</p>
                   <p class="note" style="margin-top:12px;">The talk about building with agents was built by one. <b>That's the whole point.</b></p>
                 </div>
@@ -858,17 +862,17 @@
 
             <!-- 21 · OPEN DISCUSSION (+ contacts / close) -->
             <section class="slide" data-title="Open discussion" data-mode="you" data-notes="
-              <li>This is the open hour — the bulk of our time. Most value lands here. Let them steer.</li>
+              <li>This is the open hour: the bulk of our time. Most value lands here. Let them steer.</li>
               <li>Menu if it's quiet: build your agent live · validate your idea · grill me on investing · the journey.</li>
-              <li>Tight, story-backed answers. No need to force structure — go where the room is hot.</li>
+              <li>Tight, story-backed answers. No need to force structure; go where the room is hot.</li>
               <li>Offer the network for real. Point them to Tartare if they want to go deep on building with agents. End on 'let's build.'</li>">
               <div class="kicker"><span class="b">THE FLOOR IS YOURS · REST OF OUR TIME</span></div>
               <h2>Open <span class="hl">discussion</span></h2>
               <div class="rule"></div>
-              <p class="prompt">Take it any direction — investing, building, agents, the journey. Ask the one you actually came with.</p>
+              <p class="prompt">Take it any direction: investing, building, agents, the journey. Ask the one you actually came with.</p>
               <p class="subprompt">Or let's get practical: build your agent live, or run another validation together.</p>
               <div class="contacts" style="margin-top:22px;">Slack: in your mentor channel<br />cedric.waldburger@tomahawk.vc · cedricwaldburger.com</div>
-              <p class="lead" style="margin-top:16px;">Let's build. — <b style="color:var(--ink)">Cédric</b></p>
+              <p class="lead" style="margin-top:16px;">Let's build. <b style="color:var(--ink)">Cédric</b></p>
             </section>
 
           </div>
@@ -914,7 +918,7 @@
   <span class="hk"><kbd>←</kbd><kbd>→</kbd> nav · <kbd>N</kbd> notes · <kbd>G</kbd> grid · <kbd>B</kbd> black · <kbd>F</kbd> full</span>
 </div>
 <div id="notes"><h4>SPEAKER NOTES</h4><div class="ntext" id="ntext"></div></div>
-<div id="overview"><h3>JUMP TO SLIDE — press G or Esc to close</h3><div class="ogrid" id="ogrid"></div></div>
+<div id="overview"><h3>JUMP TO SLIDE · press G or Esc to close</h3><div class="ogrid" id="ogrid"></div></div>
 <div id="blackout"></div>
 
 <script>
@@ -976,7 +980,7 @@
   document.getElementById('next').onclick = next;
   document.getElementById('prev').onclick = prev;
 
-  // auto-hiding control dock — fades out after 2.5s of no mouse movement
+  // auto-hiding control dock: fades out after 2.5s of no mouse movement
   function poke() { dock.classList.add('show'); clearTimeout(dockTimer); dockTimer = setTimeout(() => dock.classList.remove('show'), 2500); }
   window.addEventListener('mousemove', poke);
 
@@ -1040,7 +1044,7 @@
   const bootlog = document.getElementById('bootlog');
   const bootfill = document.getElementById('bootfill');
   const bootScript = [
-    { a: '> CS/OS v0.1 — booting up companies.', dim: true },
+    { a: '> CS/OS v0.1: booting up companies.', dim: true },
     { a: '> incubating eggs ····', dim: true },
     { a: '[tommy]  hatched ', h: '♥' },
     { a: '[spark]  hatched ', h: '♥' },
