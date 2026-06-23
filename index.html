@@ -343,20 +343,25 @@
   #blackout.show { opacity: 1; pointer-events: auto; }
 
   /* ===== LOGO WALL (slide 2) ===== */
-  .logowall { display: flex; flex-direction: column; gap: 14px; }
-  .logorow { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
-  .lgo { display: flex; align-items: center; justify-content: center; border: 2px solid var(--ink); box-shadow: 3px 3px 0 rgba(0,0,0,0.85); background: var(--paper); padding: 10px 14px; box-sizing: border-box; }
+  .logowall { display: flex; flex-direction: column; gap: 16px; }
+  .logorow { display: flex; align-items: stretch; gap: 16px; flex-wrap: wrap; }
+  /* every cell is a labeled brand chip: mark on top, small-caps name underneath */
+  .lgo { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; border: 2px solid var(--ink); box-shadow: 3px 3px 0 rgba(0,0,0,0.85); background: var(--paper); padding: 10px 14px; box-sizing: border-box; }
+  .lgo .mk { display: flex; align-items: center; justify-content: center; }
   /* concrete height (not just max-*) so viewBox-only SVGs get an intrinsic size and width follows aspect ratio */
   .lgo img { display: block; object-fit: contain; width: auto; max-width: 150px; }
-  .lgo.big { height: 62px; }
-  .lgo.big img { height: 40px; }
-  .lgo.sm { height: 48px; padding: 8px 14px; }
-  .lgo.sm img { height: 30px; max-width: 138px; }
-  /* AIC composite mark: abstract glyph + styled wordmark */
-  .lgo.aic { gap: 9px; }
-  .lgo.aic .aicm { height: 26px; width: 26px; flex: none; }
-  .lgo .wm { font-family: var(--sys); font-size: 11px; letter-spacing: .5px; color: var(--ink); text-align: left; line-height: 1.2; }
-  .lgo.sm .wm { font-size: 8.5px; }
+  .lgo.big { min-width: 124px; padding: 11px 18px; }
+  .lgo.big .mk { height: 40px; }
+  .lgo.big img { height: 38px; }
+  .lgo.sm { min-width: 104px; padding: 9px 16px; }
+  .lgo.sm .mk { height: 28px; }
+  .lgo.sm img { height: 26px; max-width: 122px; }
+  /* wordmark-only cells (no caption): let the mark breathe a touch larger + wider */
+  .lgo.big:not(.labeled) img { height: 40px; max-width: 132px; }
+  .lgo.sm:not(.labeled) img { height: 28px; max-width: 130px; }
+  /* the brand-name label below the mark: deck system font, muted, small caps */
+  .lgo .lbl { font-family: var(--sys); font-size: 8px; letter-spacing: .8px; color: var(--dim); text-align: center; line-height: 1.25; text-transform: uppercase; }
+  .lgo.big .lbl { font-size: 9px; }
 
   /* ===== EASTER-EGG HELPERS ===== */
   .egg-note { position: absolute; right: 40px; bottom: 30px; transform: rotate(-3deg); font-family: var(--sys); font-size: 8.5px; color: var(--dim); max-width: 220px; line-height: 1.5; }
@@ -472,15 +477,15 @@
                   </figure>
                   <div class="logowall">
                     <div class="logorow">
-                      <div class="lgo big"><img src="img/logos/code-and-state.png" alt="Code & State" style="max-height:46px;max-width:60px;" /></div>
-                      <div class="lgo big"><img src="img/logos/tomahawk-vc-mono.svg" alt="Tomahawk.VC" /></div>
-                      <div class="lgo big aic"><img class="aicm" src="img/logos/aic-mark.svg" alt="" /><span class="wm">AI&nbsp;Infrastructure<br/>Capital</span></div>
+                      <div class="lgo big labeled"><span class="mk"><img src="img/logos/code-and-state.png" alt="Code & State" style="max-height:34px;max-width:48px;" /></span><span class="lbl">Code &amp; State</span></div>
+                      <div class="lgo big labeled"><span class="mk"><img src="img/logos/tomahawk-vc-mono.svg" alt="Tomahawk.VC" style="height:40px;" /></span><span class="lbl">Tomahawk.VC</span></div>
+                      <div class="lgo big labeled"><span class="mk"><img src="img/logos/aic-mark.svg" alt="AI Infrastructure Capital" /></span><span class="lbl">AI Infrastructure Capital</span></div>
                     </div>
                     <div class="logorow">
-                      <div class="lgo sm"><img src="img/logos/dfinity.svg" alt="DFINITY" /></div>
-                      <div class="lgo sm"><img src="img/logos/liquity.svg" alt="Liquity" /></div>
-                      <div class="lgo sm"><img src="img/logos/tenderloin.png" alt="Tenderloin Ventures" /></div>
-                      <div class="lgo sm"><img src="img/logos/mediasign.svg" alt="Mediasign" /></div>
+                      <div class="lgo sm labeled"><span class="mk"><img src="img/logos/dfinity.svg" alt="DFINITY" /></span><span class="lbl">DFINITY</span></div>
+                      <div class="lgo sm labeled"><span class="mk"><img src="img/logos/liquity.svg" alt="Liquity" /></span><span class="lbl">Liquity</span></div>
+                      <div class="lgo sm labeled"><span class="mk"><img src="img/logos/tenderloin.png" alt="Tenderloin Ventures" /></span><span class="lbl">Tenderloin Ventures</span></div>
+                      <div class="lgo sm labeled"><span class="mk"><img src="img/logos/mediasign.svg" alt="Mediasign" /></span><span class="lbl">Mediasign</span></div>
                     </div>
                   </div>
                 </div>
@@ -518,7 +523,7 @@
             </section>
 
             <!-- 5 · SEND YOUR PITCH (CTA) -->
-            <section class="slide" data-title="Send your pitch" data-mode="you" data-notes="
+            <section class="slide center" data-title="Send your pitch" data-mode="you" data-notes="
               <li>Say the address out loud twice. Put it on screen and leave it.</li>
               <li>Tell them there are no format rules: a deck, a DocSend/Notion link, or a few sentences all work. We'll run 2–3 live later.</li>
               <li>This is why it's early: pitches need ~30 min to land + run.</li>">
@@ -526,8 +531,8 @@
               <h2>Send me your <span class="hl">pitch</span>, now</h2>
               <div class="rule"></div>
               <p class="prompt">Send me whatever you've got: a deck, a DocSend or Notion link, or just a few lines of text. No format rules.</p>
-              <div class="funrow"><div class="fun" style="font-size:30px; padding:16px 26px;">cedric@tomahawk.vc</div></div>
-              <p class="subprompt">Later in this session, Tommy (my fund analyst) will score it live and show you the feedback he'd send. The earlier you send, the more we can cover.</p>
+              <div class="funrow" style="margin-top:26px;"><div class="fun" style="font-size:40px; padding:22px 36px;">cedric@tomahawk.vc</div></div>
+              <p class="subprompt" style="margin-top:26px;">Later in this session, Tommy (my fund analyst) will score it live and show you the feedback he'd send. The earlier you send, the more we can cover.</p>
             </section>
 
             <!-- 6 · MEET TOMMY -->
@@ -665,17 +670,17 @@
               <div class="kicker"><span class="b">LIVE · THE PITCHES YOU SENT</span></div>
               <h2>Your pitches, <span class="hl">Tommy's read</span></h2>
               <div class="rule"></div>
-              <p class="note" style="margin-top:0;">We sent your pitches through Tommy during the session. Here's how he scored them and what he'd reply. Let's discuss.</p>
-              <div class="dealscore" style="margin-top:16px;">
+              <p class="note" style="margin-top:0;">We sent your pitches through Tommy during the session. Here's how he scored them and what he'd reply. Let's discuss. <span style="opacity:.6;">(Greyed rows are examples, replaced with yours live.)</span></p>
+              <div class="dealscore" style="margin-top:12px;">
                 <div class="hdr">PITCH</div><div class="hdr">SCORE</div><div class="hdr">TOMMY'S CALL</div>
-                <!-- FILL LIVE --><div class="pl">Pitch A</div><div class="sc">·</div><div>filled live</div>
-                <!-- FILL LIVE --><div class="pl">Pitch B</div><div class="sc">·</div><div>filled live</div>
-                <!-- FILL LIVE --><div class="pl">Pitch C</div><div class="sc">·</div><div>filled live</div>
+                <!-- FILL LIVE: replace these examples with the real pitches --><div class="pl" style="opacity:.5;">Pitch A</div><div class="sc" style="opacity:.5;">6</div><div style="opacity:.5;font-style:italic;">Strong wedge, weak distribution. DISCUSS.</div>
+                <div class="pl" style="opacity:.5;">Pitch B</div><div class="sc" style="opacity:.5;">4</div><div style="opacity:.5;font-style:italic;">Two miracles to believe at once. PASS.</div>
+                <div class="pl" style="opacity:.5;">Pitch C</div><div class="sc" style="opacity:.5;">8</div><div style="opacity:.5;font-style:italic;">Paying users and a clear channel. PURSUE.</div>
                 <div class="vr">Discussion → <b>where do you agree / disagree with Tommy?</b></div>
               </div>
-              <div class="mail" style="margin-top:16px;">
+              <div class="mail" style="margin-top:6px;">
                 <div class="mh"><span>▸ TOMMY'S DRAFT REPLY · FILLED LIVE</span></div>
-                <!-- FILL LIVE --><div class="mb">(we'll paste the real one here)</div>
+                <!-- FILL LIVE: Tommy's real draft is pasted here during the session --><div class="mb" style="opacity:.5;font-style:italic;">Subject: thanks for the pitch<br/>[Tommy's full draft reply, in Cédric's voice, appears here live.]</div>
               </div>
             </section>
 
@@ -714,7 +719,7 @@
             </section>
 
             <!-- 14 · PICK AN IDEA (CTA) -->
-            <section class="slide" data-title="Pick an idea" data-mode="you" data-notes="
+            <section class="slide center" data-title="Pick an idea" data-mode="you" data-notes="
               <li>Get ONE concrete idea + a one-line ICP. Write it down / kick off the run NOW.</li>
               <li>Set the expectation: results land on the 'Live results' slide.</li>
               <li>If the room is shy, use the metered-billing candidate as the fallback.</li>">
@@ -722,8 +727,8 @@
               <h2>Give me an <span class="hl">idea</span>, we'll run it live</h2>
               <div class="rule"></div>
               <p class="prompt">Throw out a real idea from the room: one of yours, or a hole in a market you keep seeing.</p>
-              <p class="subprompt">We'll kick it into the Idea Factory + Validation Team right now. While I walk you through how they work, the agents run in the background, and we'll look at the results together at the end of this section.</p>
-              <div class="funrow"><div class="fun">We start the run before we explain it. That's the point.</div></div>
+              <p class="subprompt" style="margin-top:26px;">We'll kick it into the Idea Factory + Validation Team right now. While I walk you through how they work, the agents run in the background, and we'll look at the results together at the end of this section.</p>
+              <div class="funrow" style="margin-top:26px;"><div class="fun" style="font-size:20px; padding:14px 22px;">We start the run before we explain it. That's the point.</div></div>
             </section>
 
             <!-- 15 · THE IDEA FACTORY (Spark, merged) -->
@@ -861,7 +866,7 @@
             </section>
 
             <!-- 21 · OPEN DISCUSSION (+ contacts / close) -->
-            <section class="slide" data-title="Open discussion" data-mode="you" data-notes="
+            <section class="slide center" data-title="Open discussion" data-mode="you" data-notes="
               <li>This is the open hour: the bulk of our time. Most value lands here. Let them steer.</li>
               <li>Menu if it's quiet: build your agent live · validate your idea · grill me on investing · the journey.</li>
               <li>Tight, story-backed answers. No need to force structure; go where the room is hot.</li>
@@ -871,8 +876,8 @@
               <div class="rule"></div>
               <p class="prompt">Take it any direction: investing, building, agents, the journey. Ask the one you actually came with.</p>
               <p class="subprompt">Or let's get practical: build your agent live, or run another validation together.</p>
-              <div class="contacts" style="margin-top:22px;">Slack: in your mentor channel<br />cedric.waldburger@tomahawk.vc · cedricwaldburger.com</div>
-              <p class="lead" style="margin-top:16px;">Let's build. <b style="color:var(--ink)">Cédric</b></p>
+              <div class="contacts" style="margin-top:22px;">Slack: in your mentor channel<br />cedric@tomahawk.vc · cedricwaldburger.com</div>
+              <p class="lead" style="margin-top:14px;">Let's build. <b style="color:var(--ink)">Cédric</b></p>
             </section>
 
           </div>
