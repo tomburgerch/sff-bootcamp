@@ -188,7 +188,7 @@
   /* agent profile */
   .profile { display: flex; gap: 24px; align-items: flex-start; }
   .profile .pic { width: 150px; height: 150px; flex: none; border: 3px solid var(--ink); box-shadow: 6px 6px 0 rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 52px; line-height: 1; color: var(--ink); overflow: hidden; }
-  .profile .pic img { width: 100%; height: 100%; object-fit: cover; display: block; image-rendering: auto; filter: grayscale(1) contrast(1.05); }
+  .profile .pic img { width: 100%; height: 100%; object-fit: cover; display: block; image-rendering: auto; }
   .profile .nm { font-family: var(--pixel); font-weight: 700; font-size: 28px; }
   .profile .role { font-family: var(--sys); font-size: 10px; color: var(--dim); margin: 5px 0 9px; letter-spacing: 0.5px; }
   .profile .desc { font-family: var(--pixel); font-size: 16px; color: var(--muted); line-height: 1.45; }
@@ -225,7 +225,7 @@
 
   /* framed photos */
   .photo { background: var(--paper); border: 3px solid var(--ink); box-shadow: 9px 9px 0 rgba(0,0,0,0.85); display: inline-block; }
-  .photo img { display: block; object-fit: cover; width: 100%; filter: grayscale(1) contrast(1.05); }
+  .photo img { display: block; object-fit: cover; width: 100%; }
   .photo .cap { font-family: var(--sys); font-size: 8.5px; color: var(--dim); text-align: center; padding: 5px 0 4px; border-top: 2px solid var(--ink);
     background: repeating-linear-gradient(180deg, rgba(0,0,0,0.05) 0 2px, transparent 2px 4px); }
   .rotL { transform: rotate(-2.5deg); } .rotR { transform: rotate(2.5deg); }
@@ -345,13 +345,17 @@
   /* ===== LOGO WALL (slide 2) ===== */
   .logowall { display: flex; flex-direction: column; gap: 14px; }
   .logorow { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
-  .lgo { display: flex; align-items: center; justify-content: center; border: 2px solid var(--ink); box-shadow: 3px 3px 0 rgba(0,0,0,0.85); background: var(--paper); padding: 10px 14px; }
-  .lgo img { display: block; object-fit: contain; }
+  .lgo { display: flex; align-items: center; justify-content: center; border: 2px solid var(--ink); box-shadow: 3px 3px 0 rgba(0,0,0,0.85); background: var(--paper); padding: 10px 14px; box-sizing: border-box; }
+  /* concrete height (not just max-*) so viewBox-only SVGs get an intrinsic size and width follows aspect ratio */
+  .lgo img { display: block; object-fit: contain; width: auto; max-width: 150px; }
   .lgo.big { height: 62px; }
-  .lgo.big img { max-height: 42px; max-width: 150px; }
-  .lgo.sm { height: 42px; padding: 7px 10px; }
-  .lgo.sm img { max-height: 26px; max-width: 96px; }
-  .lgo .wm { font-family: var(--sys); font-size: 11px; letter-spacing: .5px; color: var(--ink); text-align: center; line-height: 1.25; }
+  .lgo.big img { height: 40px; }
+  .lgo.sm { height: 48px; padding: 8px 14px; }
+  .lgo.sm img { height: 30px; max-width: 138px; }
+  /* AIC composite mark: abstract glyph + styled wordmark */
+  .lgo.aic { gap: 9px; }
+  .lgo.aic .aicm { height: 26px; width: 26px; flex: none; }
+  .lgo .wm { font-family: var(--sys); font-size: 11px; letter-spacing: .5px; color: var(--ink); text-align: left; line-height: 1.2; }
   .lgo.sm .wm { font-size: 8.5px; }
 
   /* ===== EASTER-EGG HELPERS ===== */
@@ -470,13 +474,13 @@
                     <div class="logorow">
                       <div class="lgo big"><img src="img/logos/code-and-state.png" alt="Code & State" style="max-height:46px;max-width:60px;" /></div>
                       <div class="lgo big"><img src="img/logos/tomahawk-vc-mono.svg" alt="Tomahawk.VC" /></div>
-                      <div class="lgo big"><span class="wm">AI&nbsp;INFRA-<br/>STRUCTURE&nbsp;CAPITAL</span></div>
+                      <div class="lgo big aic"><img class="aicm" src="img/logos/aic-mark.svg" alt="" /><span class="wm">AI&nbsp;Infrastructure<br/>Capital</span></div>
                     </div>
                     <div class="logorow">
-                      <div class="lgo sm"><span class="wm">DFINITY</span></div>
-                      <div class="lgo sm"><span class="wm">LIQUITY</span></div>
-                      <div class="lgo sm"><span class="wm">TENDERLOIN<br/>VENTURES</span></div>
-                      <div class="lgo sm"><span class="wm">MEDIASIGN</span></div>
+                      <div class="lgo sm"><img src="img/logos/dfinity.svg" alt="DFINITY" /></div>
+                      <div class="lgo sm"><img src="img/logos/liquity.svg" alt="Liquity" /></div>
+                      <div class="lgo sm"><img src="img/logos/tenderloin.png" alt="Tenderloin Ventures" /></div>
+                      <div class="lgo sm"><img src="img/logos/mediasign.svg" alt="Mediasign" /></div>
                     </div>
                   </div>
                 </div>
@@ -512,12 +516,12 @@
             <!-- 5 · SEND YOUR PITCH (CTA) -->
             <section class="slide" data-title="Send your pitch" data-mode="you" data-notes="
               <li>Say the address out loud twice. Put it on screen and leave it.</li>
-              <li>Tell them: even one paragraph works. We'll run 2–3 live later.</li>
+              <li>Tell them there are no format rules — a deck, a DocSend/Notion link, or a few sentences all work. We'll run 2–3 live later.</li>
               <li>This is why it's early — pitches need ~30 min to land + run.</li>">
               <div class="kicker"><span class="b">DO THIS NOW · ~2 MIN</span></div>
               <h2>Send me your <span class="hl">pitch</span> — now</h2>
               <div class="rule"></div>
-              <p class="prompt">Email me your deck or a one-paragraph pitch.</p>
+              <p class="prompt">Send me whatever you've got: a deck, a DocSend or Notion link, or just a few lines of text. No format rules.</p>
               <div class="funrow"><div class="fun" style="font-size:30px; padding:16px 26px;">cedric@tomahawk.vc</div></div>
               <p class="subprompt">Later in this session, Tommy — my fund analyst — will score it live and show you the feedback he'd send. The earlier you send, the more we can cover.</p>
             </section>
