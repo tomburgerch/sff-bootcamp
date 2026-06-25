@@ -383,6 +383,8 @@
   .lgo.sm:not(.labeled) img { height: 28px; max-width: 130px; }
   /* the brand-name label below the mark: deck system font, muted, small caps */
   .lgo .lbl { font-family: var(--sys); font-size: 8px; letter-spacing: .8px; color: var(--dim); text-align: center; line-height: 1.25; text-transform: uppercase; }
+  a.lgo { text-decoration: none; color: inherit; cursor: pointer; transition: transform .12s ease, box-shadow .12s ease; }
+  a.lgo:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--yellow); }
   .lgo.big .lbl { font-size: 9px; }
 
   /* ===== EASTER-EGG HELPERS ===== */
@@ -499,15 +501,15 @@
                   </figure>
                   <div class="logowall">
                     <div class="logorow">
-                      <div class="lgo big labeled"><span class="mk"><img src="img/logos/code-and-state.png" alt="Code & State" style="max-height:34px;max-width:48px;" /></span><span class="lbl">Code &amp; State</span></div>
-                      <div class="lgo big labeled"><span class="mk"><img src="img/logos/tomahawk-mark.svg" alt="Tomahawk.VC" /></span><span class="lbl">Tomahawk.VC</span></div>
-                      <div class="lgo big labeled"><span class="mk"><img src="img/logos/aic-mark.svg" alt="AI Infrastructure Capital" /></span><span class="lbl">AI Infrastructure Capital</span></div>
+                      <a class="lgo big labeled" href="https://codeandstate.com" target="_blank" rel="noopener"><span class="mk"><img src="img/logos/code-and-state.png" alt="Code & State" style="max-height:34px;max-width:48px;" /></span><span class="lbl">Code &amp; State</span></a>
+                      <a class="lgo big" href="https://tomahawk.vc" target="_blank" rel="noopener"><span class="mk" style="height:auto;"><img src="img/logos/tomahawk-logo-black.svg" alt="Tomahawk.VC" style="height:46px;max-width:60px;" /></span></a>
+                      <a class="lgo big labeled" href="https://ai-infrastructure.capital" target="_blank" rel="noopener"><span class="mk"><img src="img/logos/aic-mark.svg" alt="AI Infrastructure Capital" /></span><span class="lbl">AI Infrastructure Capital</span></a>
                     </div>
                     <div class="logorow">
-                      <div class="lgo sm labeled"><span class="mk"><img src="img/logos/dfinity.svg" alt="DFINITY" /></span><span class="lbl">DFINITY</span></div>
-                      <div class="lgo sm labeled"><span class="mk"><img src="img/logos/liquity.svg" alt="Liquity" /></span><span class="lbl">Liquity</span></div>
-                      <div class="lgo sm labeled"><span class="mk"><img src="img/logos/tenderloin.png" alt="Tenderloin Ventures" /></span><span class="lbl">Tenderloin Ventures</span></div>
-                      <div class="lgo sm labeled"><span class="mk"><img src="img/logos/mediasign.svg" alt="Mediasign" /></span><span class="lbl">Mediasign</span></div>
+                      <a class="lgo sm labeled" href="https://dfinity.org" target="_blank" rel="noopener"><span class="mk"><img src="img/logos/dfinity.svg" alt="DFINITY" /></span><span class="lbl">DFINITY</span></a>
+                      <a class="lgo sm labeled" href="https://www.liquity.org" target="_blank" rel="noopener"><span class="mk"><img src="img/logos/liquity.svg" alt="Liquity" /></span><span class="lbl">Liquity</span></a>
+                      <a class="lgo sm labeled" href="https://web.archive.org/web/2018/https://tenderloin-ventures.ch/" target="_blank" rel="noopener"><span class="mk"><img src="img/logos/tenderloin.png" alt="Tenderloin Ventures" /></span><span class="lbl">Tenderloin Ventures</span></a>
+                      <a class="lgo sm labeled" href="https://web.archive.org/web/2019/https://mediasign.ch/" target="_blank" rel="noopener"><span class="mk"><img src="img/logos/mediasign.svg" alt="Mediasign" /></span><span class="lbl">Mediasign</span></a>
                     </div>
                   </div>
                 </div>
