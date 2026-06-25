@@ -168,10 +168,10 @@
   ul.checks.tight li::before { top: 14px; width: 9px; height: 9px; }
   /* playbook: sharpen hierarchy: a numbered counter, a bold lead line, then a muted sub-line */
   ul.checks.playbook { counter-reset: pb; }
-  ul.checks.playbook li { padding: 14px 0 14px 50px; border-bottom: 2px solid rgba(0,0,0,0.12); }
+  ul.checks.playbook li { padding: 16px 0 16px 50px; border-bottom: 2px solid rgba(0,0,0,0.12); }
   ul.checks.playbook li::before { counter-increment: pb; content: counter(pb); top: 50%; transform: translateY(-50%); left: 0; width: 30px; height: 30px; background: var(--ink); color: var(--paper); font-family: var(--sys); font-size: 13px; display: flex; align-items: center; justify-content: center; }
   ul.checks.playbook li b { display: block; font-size: 22px; line-height: 1.18; margin-bottom: 2px; }
-  ul.checks.playbook li span { display: block; font-size: 15px; }
+  ul.checks.playbook li span { display: block; font-size: 15px; color: var(--muted); margin-top: 1px; }
 
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; flex: 1; align-content: start; }
 
@@ -209,9 +209,9 @@
   .linkrow a .s { display: block; font-size: 8.5px; color: var(--dim); margin-top: 3px; }
   .linkrow a:hover .s { color: #bbb; }
 
-  .runlist .row { display: grid; grid-template-columns: 96px 1fr; gap: 18px; padding: 11px 0; border-bottom: 2px dotted var(--ink); align-items: baseline; }
+  .runlist .row { display: grid; grid-template-columns: 96px 1fr; gap: 18px; padding: 12px 0; border-bottom: 2px solid rgba(0,0,0,0.12); align-items: baseline; }
   .runlist .row:last-child { border-bottom: none; }
-  .runlist .time { font-family: var(--sys); font-size: 12px; background: var(--yellow); border: 2px solid var(--ink); padding: 4px 0; text-align: center; box-shadow: 2px 2px 0 rgba(0,0,0,0.85); }
+  .runlist .time { font-family: var(--sys); font-size: 12px; background: var(--paper); color: var(--ink); border: 2px solid var(--ink); padding: 4px 0; text-align: center; box-shadow: 2px 2px 0 rgba(0,0,0,0.85); }
   .runlist .what { font-family: var(--pixel); font-size: 20px; }
   .runlist .what b { font-weight: 700; }
   .runlist .what span { display: block; color: var(--dim); font-size: 15px; margin-top: 1px; }
@@ -233,7 +233,7 @@
   .tool h4 { font-family: var(--pixel); font-weight: 700; font-size: 17px; margin-top: 2px; }
   .tool p { font-family: var(--pixel); font-size: 12.5px; color: var(--muted); line-height: 1.38; margin-top: 3px; }
   /* "build your own" placeholder tile: dashed, no shadow, reads as an empty slot you fill */
-  .tool.diy { border-style: dashed; box-shadow: none; background: repeating-linear-gradient(135deg, rgba(0,0,0,0.03) 0 6px, transparent 6px 12px); }
+  .tool.diy { border-style: dashed; box-shadow: 4px 4px 0 rgba(0,0,0,0.85); background: var(--yellow); }
   .tool .diyico { display: flex; align-items: center; justify-content: center; border-style: dashed; box-shadow: none; background: var(--paper);
     font-family: var(--serif); font-size: 34px; line-height: 1; color: var(--ink); }
 
@@ -292,23 +292,25 @@
   .dealscore > div:nth-last-child(-n+1) { border-bottom: none; }
   .dealscore .hdr { font-family: var(--sys); font-size: 10px; color: var(--paper); background: var(--ink); letter-spacing: .5px; }
   .dealscore .pl { font-family: var(--pixel); font-weight: 700; font-size: 17px; color: var(--ink); }
-  .dealscore .sc { font-family: var(--serif); font-size: 32px; color: var(--ink); justify-content: center; }
+  .dealscore .sc { font-family: var(--serif); font-size: 40px; color: var(--ink); justify-content: center; }
   .dealscore .vr { grid-column: 1 / -1; border-right: none; border-bottom: none; background: var(--ink); color: #e8e8e8; font-family: var(--pixel); font-size: 15px; }
   .dealscore .vr b { color: var(--yellow); }
   /* verdict-first: make the call pop, mute the supporting text */
   .dealscore .vr.verdict { font-size: 16px; padding: 15px 15px; }
   .dealscore .vr.verdict b { font-family: var(--sys); font-size: 16px; background: var(--yellow); color: var(--ink); padding: 3px 9px; border: 2px solid var(--yellow); box-shadow: 2px 2px 0 rgba(0,0,0,0.4); letter-spacing: .5px; }
-  .dealscore .vr.verdict .vsub { color: #b8b8b8; font-size: 13.5px; }
+  .dealscore .vr.verdict .vsub { color: #b8b8b8; font-size: 13.5px; display: block; margin-top: 7px; }
   .pc { border: 2px solid var(--ink); box-shadow: 4px 4px 0 rgba(0,0,0,0.85); background: var(--paper); display: flex; flex-direction: column; }
   .pc .pch { font-family: var(--sys); font-size: 11px; color: var(--paper); padding: 9px 15px; letter-spacing: .5px; }
-  .pc.pros .pch { background: #2f7a28; } .pc.cons .pch { background: #a83232; }
+  .pc.pros .pch { background: var(--ink); } .pc.cons .pch { background: var(--ink); }
+  .pc.pros { border-left: 6px solid #3f8f33; } .pc.cons { border-left: 6px solid #c23b3b; }
   .pc ul { list-style: none; padding: 13px 16px; }
   .pc li { font-family: var(--pixel); font-size: 14.5px; line-height: 1.36; padding-left: 21px; position: relative; margin-bottom: 11px; color: var(--muted); }
   .pc li:last-child { margin-bottom: 0; }
   .pc.pros li::before { content: "✓"; position: absolute; left: 0; top: 0; color: #3f8f33; font-weight: 700; }
   .pc.cons li::before { content: "✕"; position: absolute; left: 1px; top: 1px; color: #c23b3b; font-family: var(--sys); font-size: 10px; }
-  .verbar { font-family: var(--sys); font-size: 12px; margin-top: 15px; letter-spacing: .5px; color: var(--ink); }
-  .verbar b { background: var(--yellow); border: 2px solid var(--ink); padding: 3px 8px; box-shadow: 2px 2px 0 rgba(0,0,0,0.85); }
+  .verbar { font-family: var(--sys); font-size: 13px; margin-top: 18px; letter-spacing: .5px; color: var(--ink); }
+  .verbar b { background: var(--yellow); border: 2px solid var(--ink); padding: 5px 11px; box-shadow: 2px 2px 0 rgba(0,0,0,0.85); font-size: 15px; }
+  .verbar .vsub { display: block; margin-top: 10px; font-size: 13px; color: var(--muted); letter-spacing: 0; font-family: var(--pixel); }
   .mail { background: var(--paper); border: 2px solid var(--ink); box-shadow: 5px 5px 0 rgba(0,0,0,0.85); display: flex; flex-direction: column; }
   .mail .mh { font-family: var(--sys); font-size: 10px; background: var(--ink); color: var(--paper); padding: 9px 15px; letter-spacing: .5px; display: flex; justify-content: space-between; align-items: center; }
   .mail .mh .y { color: var(--yellow); }
@@ -475,8 +477,8 @@
                 <div>
                   <p class="lead">Swiss, nerd at heart, serial founder and early-stage investor. Started my first company at 14, and what still gets me up is going 0→1.</p>
                   <div class="grid g2" style="margin-top:12px; gap:12px;">
-                    <div class="card" style="padding:10px 18px;"><div class="big" style="font-size:38px;">~50</div><h3>Startups backed</h3><p>Tomahawk.VC + Tenderloin Ventures</p></div>
-                    <div class="card" style="padding:10px 18px;"><div class="big" style="font-size:38px;">6</div><h3>Companies built</h3><p>Code &amp; State · so far</p></div>
+                    <div class="card" style="padding:14px 18px;"><div class="big" style="font-size:46px;">~50</div><h3>Startups backed</h3><p>Tomahawk.VC + Tenderloin Ventures</p></div>
+                    <div class="card" style="padding:14px 18px;"><div class="big" style="font-size:46px;">6</div><h3>Companies built</h3><p>Code &amp; State · so far</p></div>
                   </div>
                   <ul class="checks tight" style="margin-top:14px;font-size:14.5px;line-height:1.55;">
                     <li><b>Build:</b> Mediasign (at 14) · DFINITY · Sendtask</li>
@@ -484,7 +486,7 @@
                     <li><b>Studio:</b> Code &amp; State → ~100 agent-run companies</li>
                   </ul>
                 </div>
-                <div style="display:flex; flex-direction:column; gap:16px; align-items:flex-start;">
+                <div style="display:flex; flex-direction:column; gap:22px; align-items:flex-start;">
                   <figure class="photo" style="position:relative; width:150px;">
                     <img src="img/portrait.png" style="height:185px" alt="Cédric Waldburger" />
                     <svg viewBox="0 0 150 185" style="position:absolute;left:0;top:0;width:150px;height:185px;pointer-events:none;" aria-hidden="true">
@@ -563,7 +565,7 @@
               <div class="kicker"><span class="b">MY FUND TEAM · TOMAHAWK.VC</span></div>
               <h2>Meet <span class="hl">Tommy</span>, my fund analyst</h2>
               <div class="rule"></div>
-              <div class="profile" style="margin-bottom:20px;">
+              <div class="profile" style="margin-bottom:10px;">
                 <div class="pic"><img src="img/tommy.png" alt="Tommy" /></div>
                 <div>
                   <div class="nm">Tommy</div>
@@ -574,7 +576,7 @@
               <div class="seclabel"><span>WHAT RUNS AROUND HIM · THE SCAFFOLDING</span></div>
               <div class="grid g2" style="gap:16px;">
                 <div class="card"><h3>A runtime, not a chatbot</h3><p>Tartare spawns him on a trigger and logs every step. Auditable, not a chat window.</p></div>
-                <div class="card"><h3>He starts with the fund's brain</h3><p>Thesis, the 40/30/30 rubric, the whole portfolio, injected at startup. Ready, not briefed.</p></div>
+                <div class="card" style="border-width:3px;box-shadow:6px 6px 0 rgba(0,0,0,0.85);"><h3>He starts with the fund's brain</h3><p>Thesis, the 40/30/30 rubric, the whole portfolio, injected at startup. Ready, not briefed.</p></div>
                 <div class="card"><h3>He runs on triggers, not chats</h3><p>Email → Missive → Thea attaches the deck → Tommy picks it up in ~60 seconds.</p></div>
                 <div class="card"><h3>He has teammates</h3><p>Kestrel red-teams blind, Thea drafts and sends, then he logs it to Notion and Slack.</p></div>
               </div>
@@ -603,8 +605,8 @@
                 </div>
               </div>
               <div class="rule" style="margin-top:30px;"></div>
-              <p class="quote" style="margin-top:18px; font-size:28px;">Code is cheap. Customers aren't.</p>
-              <div class="egg-note" style="right:60px; bottom:40px;">// thea's note: cédric wanted 6 principles. i cut it to 2. /t</div>
+              <p class="quote" style="margin-top:16px; font-size:33px;">Code is cheap. Customers aren't.</p>
+              <div class="egg-note" style="right:54px; bottom:24px;">// thea's note: cédric wanted 6 principles. i cut it to 2. /t</div>
             </section>
 
             <!-- 8 · WALKTHROUGH: THE READ -->
@@ -621,7 +623,7 @@
                 <div class="pl">Founder</div><div class="sc">3</div><div>Nine years building deep, rare rights-clearance tech, but the founder's been diluted to a sliver.</div>
                 <div class="pl">Market</div><div class="sc">4</div><div>A real, verifiable licensing gap. ~6k paying subscribers, £1.43M ARR; a brand vertical just starting to prove out.</div>
                 <div class="pl">Moat</div><div class="sc">2</div><div>Technically deep, but the labels are supplier, shareholder, AND hold change-of-control. The moat caps the margin.</div>
-                <div class="vr verdict">Tommy's call: <b>DISCUSS · 3.0</b> &nbsp;·&nbsp; <span class="vsub">"the brand vertical has something; nine years and £18M to reach £1.43M ARR does not." &nbsp;→ flag to Kestrel, blind.</span></div>
+                <div class="vr verdict">Tommy's call: <b>DISCUSS · 3.0</b><span class="vsub">"The brand vertical has something. Nine years and £18M to reach £1.43M ARR does not." → flag to Kestrel, blind.</span></div>
               </div>
             </section>
 
@@ -653,7 +655,7 @@
                   </ul>
                 </div>
               </div>
-              <div class="verbar">KESTREL: <b>PASS · conviction 1/5</b> &nbsp;·&nbsp; a small acqui-license at best, not a venture outcome.</div>
+              <div class="verbar">KESTREL: <b>PASS · conviction 1/5</b><span class="vsub">A small acqui-license at best, not a venture outcome.</span></div>
             </section>
 
             <!-- 10 · WALKTHROUGH: THE REPLY -->
@@ -664,24 +666,24 @@
               <div class="kicker"><span class="b">OUTREACH · DRAFTED FOR MY SEND</span></div>
               <h2>The reply I sent, and what came <span class="hl">back</span></h2>
               <div class="rule" style="margin:12px 0 16px;"></div>
-              <div class="two-col" style="grid-template-columns:1.18fr 0.82fr; gap:22px; flex:none;">
+              <div class="two-col" style="grid-template-columns:1.06fr 0.94fr; gap:22px; flex:none;">
                 <div class="mail">
                   <div class="mh"><span>▸ MY REPLY · A DECLINE, DRAFTED IN MY VOICE</span><span class="y">waiting: my send</span></div>
                   <div class="mb">
                     <p style="font-weight:700;margin-bottom:8px;">Declined, in my voice, with the real reason.</p>
                     <p>Thanks for the detailed walkthrough. You've built something technically real that nobody's managed in nine years.</p>
-                    <p>We're going to pass. The math doesn't work at this entry:</p>
+                    <p><b>We're going to pass.</b> The math doesn't work at this entry:</p>
                     <p class="keyline">£18M+ deployed to reach £1.43M ARR isn't a seed story.</p>
                     <p>The comps don't support the outcome, and the label equity caps both margin and exit. Structural, not solvable with this raise.</p>
                     <p>Wishing you the best with the round.<br /><span class="sig">Cédric</span></p>
                   </div>
                 </div>
-                <div style="display:flex; flex-direction:column; gap:16px;">
-                  <div class="mail">
+                <div style="display:flex; flex-direction:column;">
+                  <div class="mail" style="flex:1;">
                     <div class="mh"><span>◂ THE FOUNDER WROTE BACK</span></div>
-                    <div class="mb"><b>Confirmed the read.</b> Answered every kill-question straight: six figures invoiced, ~£190k/month burn, no independent runway. The exit thesis rested on a catalogue unlock that was only an "agreement in principle".</div>
+                    <div class="mb"><b>Confirmed the read.</b> Answered every kill-question straight: six figures invoiced, ~£190k/month burn, no independent runway. The exit thesis rested on a catalogue unlock that was only an "agreement in principle".
+                      <p class="keyline" style="margin-top:14px;">A clean pass, fast, with a real reason. Not silence.</p></div>
                   </div>
-                  <p class="note" style="margin-top:0;">The answers <b>confirmed</b> the read; they didn't change it. A clean pass, fast, and the founder got a real reason, not silence.</p>
                 </div>
               </div>
             </section>
@@ -730,8 +732,8 @@
               <h2>Two parts: the <span class="hl">Idea Factory</span> &amp; the Validation Team</h2>
               <div class="rule" style="margin:14px 0 26px;"></div>
               <div class="grid g2" style="gap:22px;">
-                <div class="card" style="padding:24px 24px;"><h3 style="font-size:22px;">① The Idea Factory</h3><p style="font-size:15px;margin-top:5px;">Spark turns real signals into a ranked pipeline of ideas. It decides WHAT to test.</p></div>
-                <div class="card" style="padding:24px 24px;"><h3 style="font-size:22px;">② The Validation Team</h3><p style="font-size:15px;margin-top:5px;">Agents run the cheapest test that could kill each idea. Fast, falsifiable, days not months.</p></div>
+                <div class="card" style="padding:24px 24px;border-width:3px;"><h3 style="font-size:22px;">① The Idea Factory</h3><p style="font-size:15px;margin-top:5px;">Spark turns real signals into a ranked pipeline of ideas. It decides WHAT to test.</p></div>
+                <div class="card" style="padding:24px 24px;border-width:3px;"><h3 style="font-size:22px;">② The Validation Team</h3><p style="font-size:15px;margin-top:5px;">Agents run the cheapest test that could kill each idea. Fast, falsifiable, days not months.</p></div>
               </div>
               <div class="seclabel" style="margin:30px 0 16px;"><span>THE FLOW · PROPOSE → KILL → SPIN OUT</span></div>
               <div class="funnel" style="margin-top:0;">
@@ -764,7 +766,7 @@
               <div class="kicker"><span class="b">CODE &amp; STATE · THE IDEA ENGINE</span></div>
               <h2>The <span class="hl">Idea Factory</span>, run by Spark</h2>
               <div class="rule" style="margin:14px 0 26px;"></div>
-              <div class="profile" style="margin-bottom:30px;">
+              <div class="profile" style="margin-bottom:18px;">
                 <div class="pic" style="width:118px; height:118px;"><img src="img/spark.png" alt="Spark" /></div>
                 <div>
                   <div class="nm">Spark</div>
@@ -775,7 +777,7 @@
               <div class="funnel" style="margin-top:0;">
                 <div class="step" style="padding:18px 16px;"><div class="n">DISCOVER</div><h4>Signals → ideas</h4><p>Real signals, ranked against our thesis.</p></div>
                 <div class="step" style="padding:18px 16px;"><div class="n">VALIDATE</div><h4>One falsifiable bar</h4><p>Name the ICP, write the kill threshold first.</p></div>
-                <div class="step" style="padding:18px 16px;"><div class="n">BUILD</div><h4>2-wk prototype</h4><p>The cheapest test that changes our mind.</p></div>
+                <div class="step" style="padding:18px 16px;border-width:3px;box-shadow:6px 6px 0 rgba(0,0,0,0.85);"><div class="n">BUILD</div><h4>2-wk prototype</h4><p>The cheapest test that changes our mind.</p></div>
                 <div class="step" style="padding:18px 16px;"><div class="n">SPIN-OUT</div><h4>Own repo + CEO</h4><p>Winners get their own company. The Factory moves on.</p></div>
               </div>
               <p class="note" style="margin-top:30px;">Validate cheapest first: <b>ask the room, check live SEO, run a $500 ad test.</b> Build only after that.</p>
@@ -789,17 +791,19 @@
               <div class="kicker"><span class="b">THE SQUAD THAT TRIES TO KILL EVERY IDEA</span></div>
               <h2>Inside the Validation Team</h2>
               <div class="rule" style="margin:14px 0 18px;"></div>
-              <div class="grid g2" style="gap:14px;">
-                <div class="card" style="padding:14px 18px;"><div class="t" style="font-family:var(--sys);font-size:9px;color:var(--dim);letter-spacing:.5px;">FINDS THE WEDGE</div><h3 style="margin-top:3px;">The Scout</h3><p style="margin-top:3px;">Pulls live demand: search volume, keyword difficulty, who's already shipping. Is the wedge open?</p></div>
-                <div class="card" style="padding:14px 18px;"><div class="t" style="font-family:var(--sys);font-size:9px;color:var(--dim);letter-spacing:.5px;">FRAMES THE BET</div><h3 style="margin-top:3px;">The Interviewer</h3><p style="margin-top:3px;">Names the ICP in one sentence, then drafts the offer to test willingness-to-pay.</p></div>
-                <div class="card" style="padding:14px 18px;"><div class="t" style="font-family:var(--sys);font-size:9px;color:var(--dim);letter-spacing:.5px;">ATTACKS IT BLIND</div><h3 style="margin-top:3px;">The Bear</h3><p style="margin-top:3px;">Argues it's dead on arrival: incumbents, no distribution. Blind, like Kestrel.</p></div>
-                <div class="card" style="padding:14px 18px;"><div class="t" style="font-family:var(--sys);font-size:9px;color:var(--dim);letter-spacing:.5px;">CALLS IT</div><h3 style="margin-top:3px;">The Scorekeeper</h3><p style="margin-top:3px;">Writes ONE falsifiable threshold before a dollar is spent, then calls it: kill, iterate, or build.</p></div>
+              <div class="grid g2" style="gap:16px;">
+                <div class="card" style="padding:18px 20px;"><div class="t" style="font-family:var(--sys);font-size:9px;color:var(--dim);letter-spacing:.5px;">FINDS THE WEDGE</div><h3 style="margin-top:4px;">The Scout</h3><p style="margin-top:4px;">Pulls live demand: search volume, keyword difficulty, who's already shipping. Is the wedge open?</p></div>
+                <div class="card" style="padding:18px 20px;"><div class="t" style="font-family:var(--sys);font-size:9px;color:var(--dim);letter-spacing:.5px;">FRAMES THE BET</div><h3 style="margin-top:4px;">The Interviewer</h3><p style="margin-top:4px;">Names the ICP in one sentence, then drafts the offer to test willingness-to-pay.</p></div>
+                <div class="card" style="padding:18px 20px;"><div class="t" style="font-family:var(--sys);font-size:9px;color:var(--dim);letter-spacing:.5px;">ATTACKS IT BLIND</div><h3 style="margin-top:4px;">The Bear</h3><p style="margin-top:4px;">Argues it's dead on arrival: incumbents, no distribution. Blind, like Kestrel.</p></div>
+                <div class="card" style="padding:18px 20px;box-shadow:6px 6px 0 rgba(0,0,0,0.85);border-width:3px;"><div class="t" style="font-family:var(--sys);font-size:9px;color:var(--dim);letter-spacing:.5px;">CALLS IT</div><h3 style="margin-top:4px;">The Scorekeeper</h3><p style="margin-top:4px;">Writes ONE falsifiable threshold before a dollar is spent, then calls it: kill, iterate, or build.</p></div>
               </div>
-              <p class="quote" style="margin-top:22px; font-size:26px; max-width:760px;">One falsifiable bar, written <span class="hl">before</span> we spend. Then we try to fail it.</p>
-              <div class="bombdlg" style="bottom:34px;">
-                <svg class="bmb" viewBox="0 0 22 22" shape-rendering="crispEdges" aria-hidden="true"><g fill="#000"><rect x="13" y="1" width="2" height="2"/><rect x="15" y="3" width="2" height="2"/><rect x="11" y="3" width="2" height="2"/><rect x="13" y="5" width="2" height="2"/><rect x="6" y="8" width="10" height="2"/><rect x="4" y="10" width="14" height="2"/><rect x="3" y="12" width="16" height="6"/><rect x="4" y="18" width="14" height="2"/><rect x="6" y="20" width="10" height="2"/></g><rect x="6" y="13" width="3" height="3" fill="#fff"/></svg>
-                <div class="btxt">Idea failed gracefully.<br/>ID = 0×N0PMF</div>
-                <div class="bbtn">[ Kill ]</div>
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:34px; margin-top:28px;">
+                <p class="quote" style="margin:0; font-size:27px; max-width:640px;">One falsifiable bar, written <span class="hl">before</span> we spend. Then we try to fail it.</p>
+                <div class="bombdlg" style="position:static; width:236px; margin:0; flex:none;">
+                  <svg class="bmb" viewBox="0 0 22 22" shape-rendering="crispEdges" aria-hidden="true"><g fill="#000"><rect x="13" y="1" width="2" height="2"/><rect x="15" y="3" width="2" height="2"/><rect x="11" y="3" width="2" height="2"/><rect x="13" y="5" width="2" height="2"/><rect x="6" y="8" width="10" height="2"/><rect x="4" y="10" width="14" height="2"/><rect x="3" y="12" width="16" height="6"/><rect x="4" y="18" width="14" height="2"/><rect x="6" y="20" width="10" height="2"/></g><rect x="6" y="13" width="3" height="3" fill="#fff"/></svg>
+                  <div class="btxt">Idea failed gracefully.<br/>ID = 0×N0PMF</div>
+                  <div class="bbtn">[ Kill ]</div>
+                </div>
               </div>
             </section>
 
